@@ -6,6 +6,10 @@ a:hover {
     text-decoration: none;
 }
 
+textarea {
+  resize: none;
+}
+
 .height_spacing {
     height: 61.89px;
 }
@@ -176,6 +180,9 @@ a:hover {
     .artist_content {
         width: 45%;
     }
+    .login_container {
+        width: 70% !important;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -192,9 +199,13 @@ a:hover {
     .artist_img_portrait.first, .artist_img_bg.first {
 
     }
+    
+    .login_container {
+        width: 100% !important;
+    }
 }
 
-.jumbotron {
+#home_jumbotron.jumbotron {
     background-image: url("../Asset/malaysia_bg.jpg");
     background-size: cover;
 }

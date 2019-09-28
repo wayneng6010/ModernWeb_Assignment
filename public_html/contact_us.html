@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>About</title>
+        <title>Contact Us</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="../Asset/tab_icon.png">
@@ -26,7 +26,7 @@
                         <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="about.html">About<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="about.html">About</a>
                     </li>
 
                     <!-- Dropdown -->
@@ -48,7 +48,7 @@
                         <a class="nav-link" href="schedule.html">Schedule</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact_us.html">Contact Us</a>
+                        <a class="nav-link active" href="contact_us.html">Contact Us<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
 
@@ -64,40 +64,54 @@
 
         <!--content-->
         <div class="container-fluid mt-4 px-5">
-            <img src="../Asset/about1.jpg" class="img-fluid rounded" alt="image">
+            <img src="../Asset/contact_us1.jpg" class="img-fluid rounded" alt="image">
             <div class="center mt-4">
                 <div class="py-0">
-                    <h2>About Us</h2>
+                    <h2 class="text-center">Contact Us</h2>
                     <hr>
-                    <p class="lead text-justify">
-                        A festival awaited by many harmonicists and harmonica enthusiasts from Malaysia and abroad, this 
-                        year’s festival is set to feature a huge lineup of international harmonicists, allowing 
-                        visitors to enjoy a wide range of performances. 
-                    </p>
-                    <p class="lead text-justify">
-                        The <b><i>Malaysia Harmonica Festival</i></b> seeks to foster international exchanges of harmonica music by 
-                        inviting harmonica performances by world-class artists and discovering new talent.
-                    </p>
-                    <p class="lead text-justify">
-                        Since 2017, the <b><i>Malaysia Harmonica Education Association</i></b>, with the help of <b><i>Penang City Government</i></b>, 
-                        generous sponsors and harmonica fans worldwide, has hosted the festival to build lasting partnerships with the local 
-                        and international communities.
-                    </p>
-                    <hr>
-                    <h4>Hosted by</h4>
-                    <p class="lead">
-                        Malaysia Harmonica Education Association
-                    </p>
-                    <img src="../Asset/about2.jpg" class="img-fluid" style="width: 50%; min-width: 250px;" alt="image">
-                    <hr>
-                    <h4>Benefits to participants</h4>
-                    <p class="lead mb-1 text-justify">
-                        Contest participants can join a free first-come, first-served basis in seminars and gala concert organized by 
-                        world famous artists
-                    </p>
-                    <p class="lead text-justify">
-                        Contest participants and spectators have access to free harmonica clinics
-                    </p>
+                    <form class="pt-3 d-block mx-auto">
+                        <div class="col-sm-6 float-left">   
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <img src="../Asset/contact_name_icon.svg" alt="@" width="20">
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" id="username" placeholder="Name" required>
+                            </div>
+
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <img src="../Asset/contact_email_icon.svg" alt="@" width="20">
+                                    </div>
+                                </div>
+                                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <img src="../Asset/contact_subject_icon.svg" alt="@" width="20">
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+                            </div>
+                        </div>  
+
+                        <div class="col-sm-6 float-right">
+                            <div class="input-group mb-3 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <img src="../Asset/contact_msg_icon.svg" alt="@" width="20">
+                                    </div>
+                                </div>
+                                <textarea rows="5" class="form-control" id="message" placeholder="Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success px-5 mb-3 float-right">Submit</button>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
