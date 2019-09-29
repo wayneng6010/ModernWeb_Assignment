@@ -39,6 +39,10 @@ textarea {
     color: white;
 }
 
+.dropdown-item.active {
+    color: white !important;
+}
+
 .artist_outer {
     height: 90vh;
     width: 100%;
