@@ -10,6 +10,14 @@ textarea {
   resize: none;
 }
 
+input[readonly] {
+    cursor: default;
+}
+
+label {
+    font-weight: bold;
+}
+
 .height_spacing {
     height: 61.89px;
 }
@@ -59,7 +67,9 @@ textarea {
     text-align: center;
 }
 
-
+.artist_content_name, .artist_content_description, artist_content_dateTime {
+    cursor: default;
+}
 
 .artist_content.first {
     position: absolute;
@@ -217,5 +227,6 @@ textarea {
 .card.home:hover {
     filter: brightness(1.05);
 }
+
 
 

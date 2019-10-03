@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Seminar</title>
+        <title>Seminar Register</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="../Asset/tab_icon.png">
@@ -11,11 +11,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
         <script src="javascript.js"></script>
-
-        <!-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="javascript.js"></script>-->
-
     </head>
     <body>
         <!--navigation bar-->
@@ -67,37 +62,51 @@
         <!--height spacing-->
         <div class="height_spacing"></div>
 
-        <div class="artist_outer">
-            <div class="artist_content first">
-                <p class="artist_content_name">CY Leo</p>
-                <p class="artist_content_description">Hong Kong’s youngest world champion harmonica player on a mission to ‘rebrand’ his humble instrument</p>
-                <p class="artist_content_dateTime">August 2, 2020 &#64; 11:00 - 11:50</p>
-                <a href="seminar_register.html"><p class="artist_register_btn">Register Now</p></a>
-            </div>
-            <div class="artist_img_portrait first"></div>
-            <div class="artist_img_bg first"></div>
-        </div>
+        <div class="container-fluid mt-4 px-5">
+            <div class="center mt-3 col-sm-6 d-block mx-auto">
+                <div class="py-0">
+                    <h2 class="text-center">Seminar Registration</h2>
+                    <hr>
+                    <form class="pt-1">
+                        <div class="form-group">
+                            <label for="seminar_session">Seminar Session</label>
+                            <select class="form-control" id="seminar_session" required>
+                                <option disabled>Choose a session</option>
+                                <option>Cy Leo</option>
+                                <option>Aiden N Evelyn</option>
+                                <option>Rei Yamashita</option>
+                            </select>
+                        </div>
 
-        <div class="artist_outer">
-            <div class="artist_content second">
-                <p class="artist_content_name">Aiden N Evelyn</p>
-                <p class="artist_content_description">One of the Malaysia’s most recognizable celebrities in harmonica industry as well as international.</p>
-                <p class="artist_content_dateTime">August 2, 2020 &#64; 12:00 - 12:50</p>
-                <a href="seminar_register.html"><p class="artist_register_btn">Register Now</p></a>
-            </div>
-            <div class="artist_img_portrait second"></div>
-            <div class="artist_img_bg second"></div>
-        </div>
+                        <div class="input-group mb-3 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <img src="../Asset/calendar_icon.svg" alt="@" width="20">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" id="seminar_date" placeholder="Date" value="2 / 8 / 2020" readonly required>
+                        </div>
+                        
+                        <div class="input-group mb-3 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <img src="../Asset/clock_icon.svg" alt="@" width="20">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" id="seminar_time" placeholder="Time" value="11:00 AM - 11:50 AM" readonly required>
+                        </div>
 
-        <div class="artist_outer">
-            <div class="artist_content third">
-                <p class="artist_content_name">Rei Yamashita</p>
-                <p class="artist_content_description">Professional harmonica player and instructor based in Tokyo and Yokohama area.</p>
-                <p class="artist_content_dateTime">August 2, 2020 &#64; 13:00 - 13:50</p>
-                <a href="seminar_register.html"><p class="artist_register_btn">Register Now</p></a>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" min="1" max="5" value="1" placeholder="Quantity" required>
+                            <p class="mt-2">* Note that only <i>maximum of 5 tickets</i> can be purchased at one time for each seminar.</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-success px-5 float-right btn-block">Confirm</button>
+
+                    </form>
+                </div>
             </div>
-            <div class="artist_img_portrait third"></div>
-            <div class="artist_img_bg third"></div>
         </div>
 
     </body>

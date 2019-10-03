@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Competition</title>
+        <title>Register - Overview</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="../Asset/tab_icon.png">
@@ -53,6 +53,7 @@
                 </ul>
 
                 <form class="form-inline my-2 my-lg-0">
+                    <a class="nav-link p-0" href="cart.html"><img src="../Asset/cart_icon.svg" width="30"></a>
                     <a class="nav-link pr-3" href="log_in.html">Log in</a>
                     <a href="sign_up.html" class="btn btn-secondary my-2 my-sm-0 px-4">Sign up</a>
                 </form>                               
@@ -62,50 +63,79 @@
         <!--height spacing-->
         <div class="height_spacing"></div>
 
-        <!--content-->
         <div class="container-fluid mt-4 px-5">
-            <div class="py-0">
-                <img class="img-fluid rounded mb-4" src="../Asset/competition1.jpg">
-                <h2 class="text-center">Competition</h2>
-                <hr>
-                <!--first category-->
-                <div class="jumbotron px-5 py-4">
-                    <h2 class="display-5">Chromatic Solo</h2>
-                    <hr class="my-2">
-                    <p class="lead mb-2">
-                        Chromatic harmonica solo with up to 6 minutes of own choice music.
-                        You may play unaccompanied or be accompanied by an instrument except another harmonica. 
-                        You can bring an accompanist or provide a backing on audio CD only.
-                    </p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn px-5" href="competition_register_chromatic.html" role="button">Register</a>
-                    </p>
-                </div>
-                <!--second category-->
-                <div class="jumbotron px-5 py-4">
-                    <h2 class="display-5">Ensemble</h2>
-                    <hr class="my-2">
-                    <p class="lead mb-2">
-                        4-6 players: Any harmonicas may be used - up to 8 minutes of own choice music.
-                    </p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn px-5" href="competition_register_ensemble.html" role="button">Register</a>
-                    </p>
-                </div>
-                <!--third category-->
-                <div class="jumbotron px-5 py-4">
-                    <h2 class="display-5">Orchestra</h2>
-                    <hr class="my-2">
-                    <p class="lead mb-2">
-                        7 or more players: any harmonicas may be used - up to 10 minutes 
-                        of own choice music.
-                    </p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn px-5" href="competition_register_orchestra.html" role="button">Register</a>
-                    </p>
-                </div>
-            </div>
+            <h2 class="text-center">Registration Submission Overview</h2>
+            <hr>
+            <!--chromatic solo table-->
+            <h4 class="text-center mt-4 mb-3">Chromatic Solo</h4>
+            <table class="table table-striped mb-5" id="solo_overview">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Contestant Name</th>
+                        <th scope="col">Song Title</th>
+                        <th scope="col">Accompaniment</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="list_empty_row">
+                        <th colspan="5" class="text-center">No registration</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--ensemble table-->
+            <h4 class="text-center mb-3">Ensemble</h4>
+            <table class="table table-striped mb-5" id="ensemble_overview">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Team Name</th>
+                        <th scope="col">Song Title</th>
+                        <th scope="col">Team Members</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="list_empty_row">
+                        <th colspan="5" class="text-center">No registration</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--orchestra table-->
+            <h4 class="text-center mb-3">Orchestra</h4>
+            <table class="table table-striped mb-5" id="orchestra_overview">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Orchestra Name</th>
+                        <th scope="col">Song Title</th>
+                        <th scope="col">Sections</th>
+                        <th scope="col">Total Number of Members</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="list_empty_row">
+                        <th colspan="6" class="text-center">No registration</th>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+        <!--blank spacing-->
+        <div style="height: 50px;"></div>
+
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark justify-content-end">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <p class="nav-link my-0 mr-3" style="color: white;">Total - MYR 0.00</p>
+                </li>
+            </ul>
+            <a href="checkout.html" class="btn btn-success px-5" id="checkout_btn">Check Out</a>
+        </nav>
 
     </body>
 </html>
