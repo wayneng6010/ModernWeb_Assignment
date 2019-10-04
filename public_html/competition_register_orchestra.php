@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register - Chromatic Solo</title>
+        <title>Register - Orchestra</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="../Asset/tab_icon.png">
@@ -13,66 +14,22 @@
         <script src="javascript.js"></script>
     </head>
     <body>
-        <!--navigation bar-->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html"><img src="../Asset/website_logo.png" width="100"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Competition<span class="sr-only">(current)</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item active" href="competition_register.html">Register</a>
-                            <a class="dropdown-item" href="competition_rules.html">Rules</a>
-                        </div>
-                    </li>
-                    <!-- /Dropdown -->
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="seminar.html">Seminar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="schedule.html">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact_us.html">Contact Us</a>
-                    </li>
-                </ul>
-
-                <form class="form-inline my-2 my-lg-0">
-                    <a class="nav-link pr-3" href="log_in.html">Log in</a>
-                    <a href="sign_up.html" class="btn btn-secondary my-2 my-sm-0 px-4">Sign up</a>
-                </form>                               
-            </div>
-        </nav>
-
+        <?php include 'navbar.php'; ?>
+        
         <!--height spacing-->
         <div class="height_spacing"></div>
 
         <div class="container-fluid mt-4 px-5">
-            <div class="center pt-2 d-block mx-auto">
+            <div class="center mt-3 d-block mx-auto">
                 <div class="py-0">
-                    <h2 class="text-center">Chromatic Solo Registration</h2>
+                    <h2 class="text-center">Orchestra Registration</h2>
                     <hr>
 
                     <form name="chromatic_solo_form">
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
                             <label for="solo_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" required>
+                                <select class="form-control" id="solo_category" style="border-color: grey;" required>
                                     <option disabled>Choose a category</option>
                                     <option>Elementary (age of 12 and below)</option>
                                     <option>Middle-High School (age of 13~18)</option>
@@ -84,14 +41,14 @@
 
                         <!--form left-->
                         <div class="col-sm-6 float-left">
-                            <label>Contestant and Song Details</label>
+                            <label>Orchestra and Song Details</label>
                             <div class="input-group mb-3 mr-sm-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <img src="../Asset/contestant_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_contestant_name" id="solo_contestant_name" placeholder="Contestant Name" required>
+                                <input type="text" class="form-control" id="ensemble_team_name" placeholder="Orchestra Name" required>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -100,7 +57,7 @@
                                         <img src="../Asset/song_title_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_title" id="solo_title" placeholder="Song Title" required>
+                                <input type="text" class="form-control" id="ensemble_title" placeholder="Song Title" required>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -109,7 +66,7 @@
                                         <img src="../Asset/composer_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_composer" id="solo_composer" placeholder="Composer" required>
+                                <input type="text" class="form-control" id="ensemble_composer" placeholder="Composer" required>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -118,33 +75,64 @@
                                         <img src="../Asset/arranger_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_arranger" id="solo_arranger" placeholder="Arranger" required>
+                                <input type="text" class="form-control" id="ensemble_arranger" placeholder="Arranger" required>
                             </div>
                         </div>
 
                         <!--form right-->
-                        <div class="col-sm-6 float-right">
-                            <div class="form-group">
-                                <label for="solo_accompaniment">Accompaniment</label>
-                                <select class="form-control" name="solo_accompaniment" id="solo_accompaniment" required>
-                                    <option disabled>Choose an accompaniment</option>
-                                    <option>Piano</option>
-                                    <option>CD</option>
-                                    <option>None</option>
-                                </select>
-                            </div>
+                        <div id="orchestra_members_outer" class="col-sm-6 float-right">
+                            <label for="solo_accompaniment">Orchestra Members</label>
 
-                            <div id="solo_pianist_outer" class="input-group mb-3 mr-sm-2">
+                            <div class="input-group mb-3 mr-sm-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <img src="../Asset/pianist_icon.svg" alt="@" width="20">
+                                        <img src="../Asset/group_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_pianist" id="solo_pianist" placeholder="Pianist Name" required>
+                                <input type="text" class="form-control" id="orchestra_section_name" placeholder="Section Name" required>
+                            </div>
+
+                            <div class="input-group mb-3 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <img src="../Asset/harmonica_icon.svg" alt="@" width="20">
+                                    </div>
+                                </div>
+                                <textarea class="form-control" id="orchestra_section_members" style="height: 92px;" placeholder="Section Members' Names ( separate each member by an new line or comma )" required></textarea>
+                            </div>
+
+                            <div class="container row mx-0 px-0">
+                                <div class="form-group col-sm-8 px-1">
+                                    <input type="text" class="form-control text-center" id="orchestra_section_members_count" placeholder="-" readonly required>
+                                </div>
+
+                                <div class="form-group col-sm-4 px-1">
+                                    <button id="orchestra_section_add" class="btn btn-success btn-block">Add Section</button>
+                                </div>
                             </div>
 
                         </div>
-                        <div class="clearfix"></div>
+
+                        <div class="clearfix pt-4" style="clear: both;">
+                            <label>Orchestra Members Overview</label>
+                            <table class="table table-striped" id="orchestra_member_list">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Section Name</th>
+                                        <th scope="col">Number of Members</th>
+                                        <th scope="col">Members</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="list_empty_row">
+                                        <th colspan="5" class="text-center">No section is added</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div class=" col-sm-3 float-right px-3 mt-2 mb-4">
                             <button type="submit" class="btn btn-success btn-block">Confirm</button>
                         </div>
@@ -154,5 +142,6 @@
             </div>
         </div>
 
+        
     </body>
 </html>

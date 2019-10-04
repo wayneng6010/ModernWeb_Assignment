@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,51 +14,7 @@
         <script src="javascript.js"></script>
     </head>
     <body>
-        <!--navigation bar-->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html"><img src="../Asset/website_logo.png" width="100"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="about.html">About<span class="sr-only">(current)</span></a>
-                    </li>
-
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Competition
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="competition_register.html">Register</a>
-                            <a class="dropdown-item" href="competition_rules.html">Rules</a>
-                        </div>
-                    </li>
-                    <!-- /Dropdown -->
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="seminar.html">Seminar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="schedule.html">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact_us.html">Contact Us</a>
-                    </li>
-                </ul>
-
-                <form class="form-inline my-2 my-lg-0">
-                    <a class="nav-link pr-3" href="log_in.html">Log in</a>
-                    <a href="sign_up.html" class="btn btn-secondary my-2 my-sm-0 px-4">Sign up</a>
-                </form>                               
-            </div>
-        </nav>
+        <?php include 'navbar.php'; ?>
 
         <!--height spacing-->
         <div class="height_spacing"></div>
@@ -84,12 +41,16 @@
                         and international communities.
                     </p>
                     <hr>
+                    
+                    <!--hosted by-->
                     <h4>Hosted by</h4>
                     <p class="lead">
                         Malaysia Harmonica Education Association
                     </p>
                     <img src="../Asset/about2.jpg" class="img-fluid" style="width: 50%; min-width: 250px;" alt="image">
                     <hr>
+                    
+                    <!--benefits to participants-->
                     <h4>Benefits to participants</h4>
                     <p class="lead mb-1 text-justify">
                         Contest participants can join a free first-come, first-served basis in seminars and gala concert organized by 
@@ -98,9 +59,11 @@
                     <p class="lead text-justify">
                         Contest participants and spectators have access to free harmonica clinics
                     </p>
+                    <br>
                 </div>
             </div>
         </div>
+
 
     </body>
 </html>

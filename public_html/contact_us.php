@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,63 +14,28 @@
         <script src="javascript.js"></script>
     </head>
     <body>
-        <!--navigation bar-->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html"><img src="../Asset/website_logo.png" width="100"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Competition
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="competition_register.html">Register</a>
-                            <a class="dropdown-item" href="competition_rules.html">Rules</a>
-                        </div>
-                    </li>
-                    <!-- /Dropdown -->
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="seminar.html">Seminar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="schedule.html">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="contact_us.html">Contact Us<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-
-                <form class="form-inline my-2 my-lg-0">
-                    <a class="nav-link pr-3" href="log_in.html">Log in</a>
-                    <a href="sign_up.html" class="btn btn-secondary my-2 my-sm-0 px-4">Sign up</a>
-                </form>                               
-            </div>
-        </nav>
+        <?php include 'navbar.php'; ?>
 
         <!--height spacing-->
         <div class="height_spacing"></div>
 
         <!--content-->
         <div class="container-fluid mt-4 px-5">
-            <img src="../Asset/contact_us1.jpg" class="img-fluid rounded" alt="image">
             <div class="center mt-4">
                 <div class="py-0">
-                    <h2 class="text-center">Contact Us</h2>
+                    
+                    <!--jumbotron banner-->
+                    <div class="jumbotron py-4 text-center">
+                        <h1 class="display-6">Feel Free to Contact Us</h1>
+                        <p class="lead">We’re here to help and answer any question you might have. We look forward to hearing from you !</p>
+                    </div>
+                    
+                    <h3 class="text-center">Drop us a mail</h3>
                     <hr>
+                    
+                    <!--send email form-->
                     <form class="pt-3 d-block mx-auto">
+                        <!--left side-->
                         <div class="col-sm-6 float-left">   
                             <div class="input-group mb-3 mr-sm-2">
                                 <div class="input-group-prepend">
@@ -98,7 +64,8 @@
                                 <input type="text" class="form-control" id="subject" placeholder="Subject" required>
                             </div>
                         </div>  
-
+                        
+                        <!--right side-->
                         <div class="col-sm-6 float-right">
                             <div class="input-group mb-3 mr-sm-2">
                                 <div class="input-group-prepend">
@@ -112,9 +79,30 @@
                         </div>
 
                     </form>
+                    
+                    <div style="clear: both;"></div>
+                    
+                    <!--contact information-->
+                    <h3 class="text-center mt-3">Contact Information</h3>
+                    <hr>
+                    <div class="row my-4 text-center" id="contact_info_outer">
+                        <div class="col-sm-4">
+                            <p class="mb-1"><b><i>Visit us</i></b></p>
+                            <p>11, Harmonica Music Center, <br>Jalan Faraday, 11700 Penang</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="mb-1"><b><i>Call us</i></b></p>
+                            <p>+60 1110961899</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="mb-1"><b><i>Mail us</i></b></p>
+                            <p>info.harfest@gmail.com</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        
     </body>
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,51 +19,7 @@
 
     </head>
     <body>
-        <!--navigation bar-->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html"><img src="../Asset/website_logo.png" width="100"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Competition
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="competition_register.html">Register</a>
-                            <a class="dropdown-item" href="competition_rules.html">Rules</a>
-                        </div>
-                    </li>
-                    <!-- /Dropdown -->
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="seminar.html">Seminar<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="schedule.html">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact_us.html">Contact Us</a>
-                    </li>
-                </ul>
-
-                <form class="form-inline my-2 my-lg-0">
-                    <a class="nav-link pr-3" href="log_in.html">Log in</a>
-                    <a href="sign_up.html" class="btn btn-secondary my-2 my-sm-0 px-4">Sign up</a>
-                </form>                               
-            </div>
-        </nav>
+        <?php include 'navbar.php'; ?>
 
         <!--height spacing-->
         <div class="height_spacing"></div>
@@ -72,7 +29,7 @@
                 <p class="artist_content_name">CY Leo</p>
                 <p class="artist_content_description">Hong Kong’s youngest world champion harmonica player on a mission to ‘rebrand’ his humble instrument</p>
                 <p class="artist_content_dateTime">August 2, 2020 &#64; 11:00 - 11:50</p>
-                <a href="seminar_register.html"><p class="artist_register_btn">Register Now</p></a>
+                <a href="seminar_register.php"><p class="artist_register_btn">Register Now</p></a>
             </div>
             <div class="artist_img_portrait first"></div>
             <div class="artist_img_bg first"></div>
@@ -83,7 +40,7 @@
                 <p class="artist_content_name">Aiden N Evelyn</p>
                 <p class="artist_content_description">One of the Malaysia’s most recognizable celebrities in harmonica industry as well as international.</p>
                 <p class="artist_content_dateTime">August 2, 2020 &#64; 12:00 - 12:50</p>
-                <a href="seminar_register.html"><p class="artist_register_btn">Register Now</p></a>
+                <a href="seminar_register.php"><p class="artist_register_btn">Register Now</p></a>
             </div>
             <div class="artist_img_portrait second"></div>
             <div class="artist_img_bg second"></div>
@@ -94,11 +51,12 @@
                 <p class="artist_content_name">Rei Yamashita</p>
                 <p class="artist_content_description">Professional harmonica player and instructor based in Tokyo and Yokohama area.</p>
                 <p class="artist_content_dateTime">August 2, 2020 &#64; 13:00 - 13:50</p>
-                <a href="seminar_register.html"><p class="artist_register_btn">Register Now</p></a>
+                <a href="seminar_register.php"><p class="artist_register_btn">Register Now</p></a>
             </div>
             <div class="artist_img_portrait third"></div>
             <div class="artist_img_bg third"></div>
         </div>
 
+        
     </body>
 </html>

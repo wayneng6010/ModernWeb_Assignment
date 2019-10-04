@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,57 +14,13 @@
         <script src="javascript.js"></script>
     </head>
     <body>
-        <!--navigation bar-->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html"><img src="../Asset/website_logo.png" width="100"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Competition
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="competition_register.html">Register</a>
-                            <a class="dropdown-item" href="competition_rules.html">Rules</a>
-                        </div>
-                    </li>
-                    <!-- /Dropdown -->
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="seminar.html">Seminar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="schedule.html">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact_us.html">Contact Us</a>
-                    </li>
-                </ul>
-
-                <form class="form-inline my-2 my-lg-0">
-                    <a class="nav-link pr-3" href="log_in.html">Log in</a>
-                    <a href="sign_up.html" class="btn btn-secondary my-2 my-sm-0 px-4">Sign up</a>
-                </form>                               
-            </div>
-        </nav>
-
+        <?php include 'navbar.php'; ?>
+       
         <!--height spacing-->
         <div class="height_spacing"></div>
 
         <!--content-->
-        <div class="container-fluid mt-5 px-5">
+        <div class="container-fluid mt-5 pt-3 px-5">
             <div class="login_container center d-block mx-auto w-50">
                 <h2 class="text-center">Account Login</h2>                    
                 <hr>
@@ -88,11 +45,12 @@
                     </div>
                     <button type="submit" class="btn btn-success btn-block mb-2">LOGIN</button>
                     <p class="text-center">
-                        <a href="sign_up.html">Create your account &#8594;</a>
+                        <a href="sign_up.php">Create your account &#8594;</a>
                     </p>
                 </form>
             </div>
         </div>
-
+        
+        
     </body>
 </html>
