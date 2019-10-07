@@ -228,6 +228,20 @@ label {
     filter: brightness(1.05);
 }
 
+.error_msg {
+    color: #fc3d3d;
+    margin: 0;
+    margin-top: 3px;
+    width: 100%;
+    display: none;
+}
+
+.error_msg p {
+    padding: 0;
+    margin: 0;
+}
+
+
 
 
 

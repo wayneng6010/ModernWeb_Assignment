@@ -37,19 +37,15 @@ $(document).ready(function () {
 
     $("#solo_accompaniment").on('change', function () {
         if (this.value === "Piano") {
-
             // add required attribute to #solo_pianist
-            $("#solo_pianist_outer #solo_pianist").prop('required', true);
+//            $("#solo_pianist_outer #solo_pianist").prop('required', true);
             // makes div visible by removing d-none class
             $("#solo_pianist_outer").removeClass("d-none");
-
         } else {
-
             // remove required attribute to #solo_pianist
-            $("#solo_pianist_outer #solo_pianist").prop('required', false);
+//            $("#solo_pianist_outer #solo_pianist").prop('required', false);
             // makes div invisible by adding d-none class
             $("#solo_pianist_outer").addClass("d-none");
-
         }
     });
 
@@ -168,6 +164,118 @@ $(document).ready(function () {
         $("#orchestra_section_members").val("");
 
     });
+
+    //validation
+
+    // validate for chromatic solo form
+    chromatic_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var solo_category = document.forms["chromatic_solo_form"]["solo_category"].value;
+        var solo_contestant_name = document.forms["chromatic_solo_form"]["solo_contestant_name"].value;
+        var solo_title = document.forms["chromatic_solo_form"]["solo_title"].value;
+        var solo_composer = document.forms["chromatic_solo_form"]["solo_composer"].value;
+        var solo_arranger = document.forms["chromatic_solo_form"]["solo_arranger"].value;
+        var solo_accompaniment = document.forms["chromatic_solo_form"]["solo_accompaniment"].value;
+        var solo_pianist = document.forms["chromatic_solo_form"]["solo_pianist"].value;
+
+        var validate = true;
+
+        // validation for contestant name input
+        if (solo_contestant_name.length === 0) {
+            $("#cname_empty").css("display", "block");
+            $('input[name="solo_contestant_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (solo_contestant_name.length > 30) {
+            $("#cname_maxlength").css("display", "block");
+            $('input[name="solo_contestant_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(solo_contestant_name)) {
+            $("#cname_isnum").css("display", "block");
+            $('input[name="solo_contestant_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for song title input
+        if (solo_title.length === 0) {
+            $("#title_empty").css("display", "block");
+            $('input[name="solo_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (solo_title.length > 30) {
+            $("#title_maxlength").css("display", "block");
+            $('input[name="solo_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(solo_title)) {
+            $("#title_isnum").css("display", "block");
+            $('input[name="solo_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for composer input
+        if (solo_composer.length === 0) {
+            $("#compsr_empty").css("display", "block");
+            $('input[name="solo_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (solo_composer.length > 30) {
+            $("#compsr_maxlength").css("display", "block");
+            $('input[name="solo_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(solo_composer)) {
+            $("#compsr_isnum").css("display", "block");
+            $('input[name="solo_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for arranger input
+        if (solo_arranger.length === 0) {
+            $("#arranger_empty").css("display", "block");
+            $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (solo_arranger.length > 30) {
+            $("#arranger_maxlength").css("display", "block");
+            $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(solo_arranger)) {
+            $("#arranger_isnum").css("display", "block");
+            $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for pianist input
+        if (!$("#solo_pianist_outer").hasClass("d-none")) {
+            if (solo_pianist.length === 0) {
+                $("#pianist_empty").css("display", "block");
+                $('input[name="solo_pianist"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if (solo_pianist.length > 30) {
+                $("#pianist_maxlength").css("display", "block");
+                $('input[name="solo_pianist"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if ($.isNumeric(solo_pianist)) {
+                $("#pianist_isnum").css("display", "block");
+                $('input[name="solo_pianist"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+
+    };
 
 
 });

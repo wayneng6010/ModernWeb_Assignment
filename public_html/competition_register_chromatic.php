@@ -25,11 +25,11 @@
                     <h2 class="text-center">Chromatic Solo Registration</h2>
                     <hr>
 
-                    <form name="chromatic_solo_form">
+                    <form method="post" name="chromatic_solo_form" onsubmit="return chromatic_form_validate()">
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
                             <label for="solo_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" required>
+                                <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" >
                                     <option disabled>Choose a category</option>
                                     <option>Elementary (age of 12 and below)</option>
                                     <option>Middle-High School (age of 13~18)</option>
@@ -48,7 +48,10 @@
                                         <img src="../Asset/contestant_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_contestant_name" id="solo_contestant_name" placeholder="Contestant Name" required>
+                                <input type="text" class="form-control" name="solo_contestant_name" id="solo_contestant_name" placeholder="Contestant Name" >
+                                <div class="error_msg" id="cname_empty"><p>Please fill in contestant name.</p></div>
+                                <div class="error_msg" id="cname_maxlength"><p>Contestant name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="cname_isnum"><p>Contestant name should not be an number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -57,7 +60,10 @@
                                         <img src="../Asset/song_title_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_title" id="solo_title" placeholder="Song Title" required>
+                                <input type="text" class="form-control" name="solo_title" id="solo_title" placeholder="Song Title" >
+                                <div class="error_msg" id="title_empty"><p>Please fill in song title.</p></div>
+                                <div class="error_msg" id="title_maxlength"><p>Song title is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="title_isnum"><p>Song title should not be an number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -66,7 +72,10 @@
                                         <img src="../Asset/composer_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_composer" id="solo_composer" placeholder="Composer" required>
+                                <input type="text" class="form-control" name="solo_composer" id="solo_composer" placeholder="Composer" >
+                                <div class="error_msg" id="compsr_empty"><p>Please fill in composer name.</p></div>
+                                <div class="error_msg" id="compsr_maxlength"><p>Composer name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="compsr_isnum"><p>Composer name should not be an number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -75,7 +84,10 @@
                                         <img src="../Asset/arranger_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_arranger" id="solo_arranger" placeholder="Arranger" required>
+                                <input type="text" class="form-control" name="solo_arranger" id="solo_arranger" placeholder="Arranger" >
+                                <div class="error_msg" id="arranger_empty"><p>Please fill in arranger name.</p></div>
+                                <div class="error_msg" id="arranger_maxlength"><p>Arranger name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="arranger_isnum"><p>Arranger name should not be an number.</p></div>
                             </div>
                         </div>
 
@@ -83,7 +95,7 @@
                         <div class="col-sm-6 float-right">
                             <div class="form-group">
                                 <label for="solo_accompaniment">Accompaniment</label>
-                                <select class="form-control" name="solo_accompaniment" id="solo_accompaniment" required>
+                                <select class="form-control" name="solo_accompaniment" id="solo_accompaniment" >
                                     <option disabled>Choose an accompaniment</option>
                                     <option>Piano</option>
                                     <option>CD</option>
@@ -97,7 +109,10 @@
                                         <img src="../Asset/pianist_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_pianist" id="solo_pianist" placeholder="Pianist Name" required>
+                                <input type="text" class="form-control" name="solo_pianist" id="solo_pianist" placeholder="Pianist Name" >
+                                <div class="error_msg" id="pianist_empty"><p>Please fill in pianist name.</p></div>
+                                <div class="error_msg" id="pianist_maxlength"><p>Pianist name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="pianist_isnum"><p>Pianist name should not be an number.</p></div>
                             </div>
 
                         </div>

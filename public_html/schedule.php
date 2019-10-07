@@ -24,15 +24,21 @@
             <div class="py-0">
                 <h2 class="text-center">Schedule and Location</h2>
                 <hr>
-                <img src="../Asset/schedule1.png" class="img-fluid rounded mb-4" alt="image" width="600">
-                <img src="../Asset/schedule2.png" class="img-fluid rounded mb-2" alt="image" width="600">
-                <img src="../Asset/schedule3.png" class="img-fluid rounded" alt="image" width="600">
-                <hr>
-                <h4 class="mb-3">Damansara Performing Arts Centre</h4>
+                <div class="container px-0 pt-2">
+                    <div class="row">
+                        <img src="../Asset/schedule1.png" class="img-fluid rounded col-sm-6 mb-4" alt="image" width="600">
+                        <img src="../Asset/schedule2.png" class="img-fluid rounded col-sm-6 mb-3" alt="image" width="600">
+                    </div>
+                    <div class="row justify-content-center">
+                        <img src="../Asset/schedule3.png" class="img-fluid rounded" alt="image" width="600">
+                    </div>
+                </div>
+                <hr class="my-5">
+                <h4 class="mb-3 text-center">Damansara Performing Arts Centre</h4>
                 <iframe class="w-100 mb-3" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.722356873739!2d101.60997151380877!3d3.1676526976935517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4f34b5f5d563%3A0xb83c97088d2fc9f8!2sDamansara%20Performing%20Arts%20Centre!5e0!3m2!1sen!2smy!4v1569687684375!5m2!1sen!2smy" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
             </div>
         </div>
 
-        
+
     </body>
 </html>
