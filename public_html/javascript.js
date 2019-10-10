@@ -49,7 +49,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#ensemble_accompaniment").on('change', function () {
+    $("#ensemble_member_count").on('change', function () {
         if (this.value === "Quartet (4 person)") {
 
             // makes div invisible by adding d-none class
@@ -57,8 +57,8 @@ $(document).ready(function () {
             $("#ensemble_forth_outer").addClass("d-none");
 
             // remove required attribute from #ensemble_third and #ensemble_forth
-            $("#ensemble_third_outer #ensemble_third").prop('required', false);
-            $("#ensemble_forth_outer #ensemble_forth").prop('required', false);
+//            $("#ensemble_third_outer #ensemble_third").prop('required', false);
+//            $("#ensemble_forth_outer #ensemble_forth").prop('required', false);
 
         } else if (this.value === "Quintet (5 person)") {
 
@@ -66,13 +66,13 @@ $(document).ready(function () {
             $("#ensemble_third_outer").removeClass("d-none");
 
             // add required attribute to #ensemble_third
-            $("#ensemble_third_outer #ensemble_third").prop('required', true);
+//            $("#ensemble_third_outer #ensemble_third").prop('required', true);
 
             // makes div invisible by adding d-none class
             $("#ensemble_forth_outer").addClass("d-none");
 
             // remove required attribute from #ensemble_forth
-            $("#ensemble_forth_outer #ensemble_forth").prop('required', false);
+//            $("#ensemble_forth_outer #ensemble_forth").prop('required', false);
 
         } else if (this.value === "Sextet (6 person)") {
 
@@ -80,13 +80,13 @@ $(document).ready(function () {
             $("#ensemble_third_outer").removeClass("d-none");
 
             // add required attribute to #ensemble_third
-            $("#ensemble_third_outer #ensemble_third").prop('required', true);
+//            $("#ensemble_third_outer #ensemble_third").prop('required', true);
 
             // makes div visible by removing d-none class
             $("#ensemble_forth_outer").removeClass("d-none");
 
             // add required attribute to #ensemble_forth
-            $("#ensemble_forth_outer #ensemble_forth").prop('required', true);
+//            $("#ensemble_forth_outer #ensemble_forth").prop('required', true);
 
         }
     });
@@ -124,6 +124,17 @@ $(document).ready(function () {
             members_count = temp_members_arr.length;
             // display array elements separated with commas 
             this.value = temp_members_arr.join(', ');
+        } else {
+            // store it into array
+            temp_members_arr = this.value;
+
+            //clear spaces before and after an array element
+            temp_members_arr = $.trim(temp_members_arr);
+
+            // count number of elements (section members) in the array 
+            members_count = 1;
+            // display array elements 
+            this.value = temp_members_arr;
         }
 
         // display number of section members for double checking by user
@@ -194,7 +205,7 @@ $(document).ready(function () {
             $('input[name="solo_contestant_name"]').css("border", "1px solid #ff7d7d");
             validate = false;
         }
-        if ($.isNumeric(solo_contestant_name)) {
+        if ($.isNumeric(solo_contestant_name) || /\d/.test(solo_contestant_name)) {
             $("#cname_isnum").css("display", "block");
             $('input[name="solo_contestant_name"]').css("border", "1px solid #ff7d7d");
             validate = false;
@@ -228,7 +239,7 @@ $(document).ready(function () {
             $('input[name="solo_composer"]').css("border", "1px solid #ff7d7d");
             validate = false;
         }
-        if ($.isNumeric(solo_composer)) {
+        if ($.isNumeric(solo_composer) || /\d/.test(solo_composer)) {
             $("#compsr_isnum").css("display", "block");
             $('input[name="solo_composer"]').css("border", "1px solid #ff7d7d");
             validate = false;
@@ -245,7 +256,7 @@ $(document).ready(function () {
             $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
             validate = false;
         }
-        if ($.isNumeric(solo_arranger)) {
+        if ($.isNumeric(solo_arranger) || /\d/.test(solo_arranger)) {
             $("#arranger_isnum").css("display", "block");
             $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
             validate = false;
@@ -263,9 +274,315 @@ $(document).ready(function () {
                 $('input[name="solo_pianist"]').css("border", "1px solid #ff7d7d");
                 validate = false;
             }
-            if ($.isNumeric(solo_pianist)) {
+            if ($.isNumeric(solo_pianist) || /\d/.test(solo_pianist)) {
                 $("#pianist_isnum").css("display", "block");
                 $('input[name="solo_pianist"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+
+    };
+
+    // validate for ensemble form
+    ensemble_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var ensemble_category = document.forms["ensemble_form"]["ensemble_category"].value;
+        var ensemble_team_name = document.forms["ensemble_form"]["ensemble_team_name"].value;
+        var ensemble_member_count = document.forms["ensemble_form"]["ensemble_member_count"].value;
+        var ensemble_title = document.forms["ensemble_form"]["ensemble_title"].value;
+        var ensemble_composer = document.forms["ensemble_form"]["ensemble_composer"].value;
+        var ensemble_arranger = document.forms["ensemble_form"]["ensemble_arranger"].value;
+        var ensemble_first = document.forms["ensemble_form"]["ensemble_first"].value;
+        var ensemble_second = document.forms["ensemble_form"]["ensemble_second"].value;
+        var ensemble_third = document.forms["ensemble_form"]["ensemble_third"].value;
+        var ensemble_forth = document.forms["ensemble_form"]["ensemble_forth"].value;
+        var ensemble_bass = document.forms["ensemble_form"]["ensemble_bass"].value;
+        var ensemble_chord = document.forms["ensemble_form"]["ensemble_chord"].value;
+
+        var validate = true;
+
+        // validation for ensemble team name input
+        if (ensemble_team_name.length === 0) {
+            $("#ename_empty").css("display", "block");
+            $('input[name="ensemble_team_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_team_name.length > 30) {
+            $("#ename_maxlength").css("display", "block");
+            $('input[name="ensemble_team_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_team_name) || /\d/.test(ensemble_team_name)) {
+            $("#ename_isnum").css("display", "block");
+            $('input[name="ensemble_team_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for song title input
+        if (ensemble_title.length === 0) {
+            $("#title_empty").css("display", "block");
+            $('input[name="ensemble_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_title.length > 30) {
+            $("#title_maxlength").css("display", "block");
+            $('input[name="ensemble_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_title)) {
+            $("#title_isnum").css("display", "block");
+            $('input[name="ensemble_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for composer input
+        if (ensemble_composer.length === 0) {
+            $("#compsr_empty").css("display", "block");
+            $('input[name="ensemble_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_composer.length > 30) {
+            $("#compsr_maxlength").css("display", "block");
+            $('input[name="ensemble_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_composer) || /\d/.test(ensemble_composer)) {
+            $("#compsr_isnum").css("display", "block");
+            $('input[name="ensemble_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for arranger input
+        if (ensemble_arranger.length === 0) {
+            $("#arranger_empty").css("display", "block");
+            $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_arranger.length > 30) {
+            $("#arranger_maxlength").css("display", "block");
+            $('input[name="ensemble_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_arranger) || /\d/.test(ensemble_arranger)) {
+            $("#arranger_isnum").css("display", "block");
+            $('input[name="ensemble_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for first player input
+        if (ensemble_first.length === 0) {
+            $("#first_empty").css("display", "block");
+            $('input[name="ensemble_first"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_first.length > 30) {
+            $("#first_maxlength").css("display", "block");
+            $('input[name="ensemble_first"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_first) || /\d/.test(ensemble_first)) {
+            $("#first_isnum").css("display", "block");
+            $('input[name="ensemble_first"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for second player input
+        if (ensemble_second.length === 0) {
+            $("#second_empty").css("display", "block");
+            $('input[name="ensemble_second"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_second.length > 30) {
+            $("#second_maxlength").css("display", "block");
+            $('input[name="ensemble_second"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_second) || /\d/.test(ensemble_second)) {
+            $("#second_isnum").css("display", "block");
+            $('input[name="ensemble_second"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for third player input
+        if (!$("#ensemble_third_outer").hasClass("d-none")) {
+            if (ensemble_third.length === 0) {
+                $("#third_empty").css("display", "block");
+                $('input[name="ensemble_third"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if (ensemble_third.length > 30) {
+                $("#third_maxlength").css("display", "block");
+                $('input[name="ensemble_third"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if ($.isNumeric(ensemble_third) || /\d/.test(ensemble_third)) {
+                $("#third_isnum").css("display", "block");
+                $('input[name="ensemble_third"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+        }
+
+        // validation for forth player input
+        if (!$("#ensemble_forth_outer").hasClass("d-none")) {
+            if (ensemble_forth.length === 0) {
+                $("#forth_empty").css("display", "block");
+                $('input[name="ensemble_forth"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if (ensemble_forth.length > 30) {
+                $("#forth_maxlength").css("display", "block");
+                $('input[name="ensemble_forth"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if ($.isNumeric(ensemble_forth) || /\d/.test(ensemble_forth)) {
+                $("#forth_isnum").css("display", "block");
+                $('input[name="ensemble_forth"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+        }
+
+        // validation for bass player input
+        if (ensemble_bass.length === 0) {
+            $("#bass_empty").css("display", "block");
+            $('input[name="ensemble_bass"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_bass.length > 30) {
+            $("#bass_maxlength").css("display", "block");
+            $('input[name="ensemble_bass"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_bass) || /\d/.test(ensemble_bass)) {
+            $("#bass_isnum").css("display", "block");
+            $('input[name="ensemble_bass"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for chord player input
+        if (ensemble_chord.length === 0) {
+            $("#chord_empty").css("display", "block");
+            $('input[name="ensemble_chord"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (ensemble_chord.length > 30) {
+            $("#chord_maxlength").css("display", "block");
+            $('input[name="ensemble_chord"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(ensemble_chord) || /\d/.test(ensemble_chord)) {
+            $("#chord_isnum").css("display", "block");
+            $('input[name="ensemble_chord"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+
+    };
+
+    // validate for chromatic solo form
+    orchestra_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var orchestra_name = document.forms["orchestra_form"]["orchestra_name"].value;
+        var orchestra_title = document.forms["orchestra_form"]["orchestra_title"].value;
+        var orchestra_composer = document.forms["orchestra_form"]["orchestra_composer"].value;
+        var orchestra_arranger = document.forms["orchestra_form"]["orchestra_arranger"].value;
+
+        var validate = true;
+
+        // validation for contestant name input
+        if (orchestra_name.length === 0) {
+            $("#oname_empty").css("display", "block");
+            $('input[name="orchestra_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (orchestra_name.length > 30) {
+            $("#oname_maxlength").css("display", "block");
+            $('input[name="orchestra_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(orchestra_name) || /\d/.test(orchestra_name)) {
+            $("#oname_isnum").css("display", "block");
+            $('input[name="orchestra_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for song title input
+        if (orchestra_title.length === 0) {
+            $("#title_empty").css("display", "block");
+            $('input[name="orchestra_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (orchestra_title.length > 30) {
+            $("#title_maxlength").css("display", "block");
+            $('input[name="orchestra_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(orchestra_title)) {
+            $("#title_isnum").css("display", "block");
+            $('input[name="orchestra_title"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for composer input
+        if (orchestra_composer.length === 0) {
+            $("#compsr_empty").css("display", "block");
+            $('input[name="orchestra_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (orchestra_composer.length > 30) {
+            $("#compsr_maxlength").css("display", "block");
+            $('input[name="orchestra_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(orchestra_composer) || /\d/.test(orchestra_composer)) {
+            $("#compsr_isnum").css("display", "block");
+            $('input[name="orchestra_composer"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for arranger input
+        if (orchestra_arranger.length === 0) {
+            $("#arranger_empty").css("display", "block");
+            $('input[name="orchestra_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (orchestra_arranger.length > 30) {
+            $("#arranger_maxlength").css("display", "block");
+            $('input[name="orchestra_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(orchestra_arranger) || /\d/.test(orchestra_arranger)) {
+            $("#arranger_isnum").css("display", "block");
+            $('input[name="orchestra_arranger"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // check if orchestra member has at least 7 person. 
+        var member_count = 0;
+
+        if (jQuery.isEmptyObject(orchestra_members)) {
+            $("#member_count_insufficient").css("display", "block");
+            validate = false;
+        } else {
+            for (var section in orchestra_members) {
+                member_count += orchestra_members[section].length;
+            }
+            if (member_count < 7) {
+                $("#member_count_insufficient").css("display", "block");
                 validate = false;
             }
         }

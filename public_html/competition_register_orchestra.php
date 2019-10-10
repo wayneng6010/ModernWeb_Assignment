@@ -25,11 +25,11 @@
                     <h2 class="text-center">Orchestra Registration</h2>
                     <hr>
 
-                    <form name="chromatic_solo_form">
+                    <form name="orchestra_form" method="post" onsubmit="return orchestra_form_validate()">
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
                             <label for="solo_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="solo_category" style="border-color: grey;" required>
+                                <select class="form-control" name="orchestra_category" id="orchestra_category" style="border-color: grey;">
                                     <option disabled>Choose a category</option>
                                     <option>Elementary (age of 12 and below)</option>
                                     <option>Middle-High School (age of 13~18)</option>
@@ -48,7 +48,10 @@
                                         <img src="../Asset/contestant_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" id="ensemble_team_name" placeholder="Orchestra Name" required>
+                                <input type="text" class="form-control" name="orchestra_name" id="orchestra_name" placeholder="Orchestra Name">
+                                <div class="error_msg" id="oname_empty"><p>Please fill in orchestra name.</p></div>
+                                <div class="error_msg" id="oname_maxlength"><p>Orchestra name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="oname_isnum"><p>Orchestra name should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -57,7 +60,10 @@
                                         <img src="../Asset/song_title_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" id="ensemble_title" placeholder="Song Title" required>
+                                <input type="text" class="form-control" name="orchestra_title" id="orchestra_title" placeholder="Song Title">
+                                <div class="error_msg" id="title_empty"><p>Please fill in song title.</p></div>
+                                <div class="error_msg" id="title_maxlength"><p>Song title is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="title_isnum"><p>Song title should not be an number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -66,7 +72,10 @@
                                         <img src="../Asset/composer_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" id="ensemble_composer" placeholder="Composer" required>
+                                <input type="text" class="form-control" name="orchestra_composer" class="orchestra_composer" id="orchestra_composer" placeholder="Composer">
+                                <div class="error_msg" id="compsr_empty"><p>Please fill in composer name.</p></div>
+                                <div class="error_msg" id="compsr_maxlength"><p>Composer name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="compsr_isnum"><p>Composer name should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -75,7 +84,10 @@
                                         <img src="../Asset/arranger_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" id="ensemble_arranger" placeholder="Arranger" required>
+                                <input type="text" class="form-control" name="orchestra_arranger" class="orchestra_arranger" id="orchestra_arranger" placeholder="Arranger">
+                                <div class="error_msg" id="arranger_empty"><p>Please fill in arranger name.</p></div>
+                                <div class="error_msg" id="arranger_maxlength"><p>Arranger name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="arranger_isnum"><p>Arranger name should not be an number or contain any number.</p></div>
                             </div>
                         </div>
 
@@ -89,7 +101,10 @@
                                         <img src="../Asset/group_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" id="orchestra_section_name" placeholder="Section Name" required>
+                                <input type="text" class="form-control" class="orchestra_section_name" id="orchestra_section_name" placeholder="Section Name">
+                                <div class="error_msg" id="section_empty"><p>Please fill in section name.</p></div>
+                                <div class="error_msg" id="section_maxlength"><p>Section name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="section_isnum"><p>Section name should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -98,16 +113,19 @@
                                         <img src="../Asset/harmonica_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <textarea class="form-control" id="orchestra_section_members" style="height: 92px;" placeholder="Section Members' Names ( separate each member by an new line or comma )" required></textarea>
+                                <textarea class="form-control" id="orchestra_section_members" style="height: 92px;" placeholder="Section Members' Names ( separate each member by an new line or comma )"></textarea>
+                                <div class="error_msg" id="member_empty"><p>Please fill in member name.</p></div>
+                                <div class="error_msg" id="member_maxlength"><p>Member name is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="member_isnum"><p>Member name should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="container row mx-0 px-0">
                                 <div class="form-group col-sm-8 px-1">
-                                    <input type="text" class="form-control text-center" id="orchestra_section_members_count" placeholder="-" readonly required>
+                                    <input type="text" class="form-control text-center" class="orchestra_section_members_count" id="orchestra_section_members_count" placeholder="-" readonly>
                                 </div>
 
                                 <div class="form-group col-sm-4 px-1">
-                                    <button id="orchestra_section_add" class="btn btn-success btn-block">Add Section</button>
+                                    <button type="button" id="orchestra_section_add" class="btn btn-success btn-block">Add Section</button>
                                 </div>
                             </div>
 
@@ -132,6 +150,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="error_msg" id="member_count_insufficient"><p>Total number of orchestra member should be at least 7 person.</p></div>
 
                         <div class=" col-sm-3 float-right px-3 mt-2 mb-4">
                             <button type="submit" class="btn btn-success btn-block">Confirm</button>

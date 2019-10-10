@@ -19,7 +19,7 @@
 
             <!-- Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle <?php if ($filename === 'competition_register.php' || $filename === 'competition_rules.php') { echo "active"; } ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle <?php if ($filename === 'competition_register.php' || $filename === 'competition_rules.php' || $filename === 'competition_register_chromatic.php' || $filename === 'competition_register_ensemble.php' || $filename === 'competition_register_orchestra.php') { echo "active"; } ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Competition
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

@@ -29,7 +29,7 @@
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
                             <label for="solo_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" >
+                                <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" required>
                                     <option disabled>Choose a category</option>
                                     <option>Elementary (age of 12 and below)</option>
                                     <option>Middle-High School (age of 13~18)</option>
@@ -51,7 +51,7 @@
                                 <input type="text" class="form-control" name="solo_contestant_name" id="solo_contestant_name" placeholder="Contestant Name" >
                                 <div class="error_msg" id="cname_empty"><p>Please fill in contestant name.</p></div>
                                 <div class="error_msg" id="cname_maxlength"><p>Contestant name is too long. Maximum 30 characters.</p></div>
-                                <div class="error_msg" id="cname_isnum"><p>Contestant name should not be an number.</p></div>
+                                <div class="error_msg" id="cname_isnum"><p>Contestant name should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -75,7 +75,7 @@
                                 <input type="text" class="form-control" name="solo_composer" id="solo_composer" placeholder="Composer" >
                                 <div class="error_msg" id="compsr_empty"><p>Please fill in composer name.</p></div>
                                 <div class="error_msg" id="compsr_maxlength"><p>Composer name is too long. Maximum 30 characters.</p></div>
-                                <div class="error_msg" id="compsr_isnum"><p>Composer name should not be an number.</p></div>
+                                <div class="error_msg" id="compsr_isnum"><p>Composer name should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -87,7 +87,7 @@
                                 <input type="text" class="form-control" name="solo_arranger" id="solo_arranger" placeholder="Arranger" >
                                 <div class="error_msg" id="arranger_empty"><p>Please fill in arranger name.</p></div>
                                 <div class="error_msg" id="arranger_maxlength"><p>Arranger name is too long. Maximum 30 characters.</p></div>
-                                <div class="error_msg" id="arranger_isnum"><p>Arranger name should not be an number.</p></div>
+                                <div class="error_msg" id="arranger_isnum"><p>Arranger name should not be an number or contain any number.</p></div>
                             </div>
                         </div>
 
@@ -112,7 +112,7 @@
                                 <input type="text" class="form-control" name="solo_pianist" id="solo_pianist" placeholder="Pianist Name" >
                                 <div class="error_msg" id="pianist_empty"><p>Please fill in pianist name.</p></div>
                                 <div class="error_msg" id="pianist_maxlength"><p>Pianist name is too long. Maximum 30 characters.</p></div>
-                                <div class="error_msg" id="pianist_isnum"><p>Pianist name should not be an number.</p></div>
+                                <div class="error_msg" id="pianist_isnum"><p>Pianist name should not be an number or contain any number.</p></div>
                             </div>
 
                         </div>
