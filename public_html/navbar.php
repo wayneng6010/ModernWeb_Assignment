@@ -30,7 +30,7 @@
             <!-- /Dropdown -->
 
             <li class="nav-item">
-                <a class="nav-link <?php if ($filename === 'seminar.php') { echo "active"; } ?>" href="seminar.php">Seminar</a>
+                <a class="nav-link <?php if ($filename === 'seminar.php' || $filename === 'seminar_register.php') { echo "active"; } ?>" href="seminar.php">Seminar</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link <?php if ($filename === 'schedule.php') { echo "active"; } ?>" href="schedule.php">Schedule</a>

@@ -101,7 +101,7 @@
                                         <img src="../Asset/group_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" class="orchestra_section_name" id="orchestra_section_name" placeholder="Section Name">
+                                <input type="text" class="form-control" name="orchestra_section_name" class="orchestra_section_name" id="orchestra_section_name" placeholder="Section Name">
                                 <div class="error_msg" id="section_empty"><p>Please fill in section name.</p></div>
                                 <div class="error_msg" id="section_maxlength"><p>Section name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="section_isnum"><p>Section name should not be an number or contain any number.</p></div>
@@ -113,10 +113,10 @@
                                         <img src="../Asset/harmonica_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <textarea class="form-control" id="orchestra_section_members" style="height: 92px;" placeholder="Section Members' Names ( separate each member by an new line or comma )"></textarea>
-                                <div class="error_msg" id="member_empty"><p>Please fill in member name.</p></div>
-                                <div class="error_msg" id="member_maxlength"><p>Member name is too long. Maximum 30 characters.</p></div>
-                                <div class="error_msg" id="member_isnum"><p>Member name should not be an number or contain any number.</p></div>
+                                <textarea class="form-control" name="orchestra_section_members" id="orchestra_section_members" style="height: 92px;" placeholder="Section Members' Names ( separate each member by an new line or comma )"></textarea>
+                                <div class="error_msg" id="member_empty"><p>Please fill at least one member name.</p></div>
+                                <div class="error_msg" id="member_maxlength"><p>One or some of the member names is too long. Maximum 30 characters.</p></div>
+                                <div class="error_msg" id="member_isnum"><p>All of the member names should not be an number or contain any number.</p></div>
                             </div>
 
                             <div class="container row mx-0 px-0">

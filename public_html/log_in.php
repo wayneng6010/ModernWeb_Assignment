@@ -15,7 +15,7 @@
     </head>
     <body>
         <?php include 'navbar.php'; ?>
-       
+
         <!--height spacing-->
         <div class="height_spacing"></div>
 
@@ -24,7 +24,7 @@
             <div class="login_container center d-block mx-auto w-50">
                 <h2 class="text-center">Account Login</h2>                    
                 <hr>
-                <form class="d-block mx-auto">
+                <form method="post" name="login_form" class="d-block mx-auto" onsubmit="return login_form_validate()">
                     <!--email-->
                     <div class="pt-2 input-group mb-3 mr-sm-2">
                         <div class="input-group-prepend">
@@ -32,7 +32,9 @@
                                 <img src="../Asset/contact_email_icon.svg" alt="@" width="20">
                             </div>
                         </div>
-                        <input type="email" class="form-control" id="email" placeholder="Email" required>
+                        <input type="text" name="login_email" class="form-control" id="email" placeholder="Email">
+                        <div class="error_msg" id="email_empty"><p>Please fill in your email.</p></div>
+                        <div class="error_msg" id="email_invalid"><p>Please fill in correct email format.</p></div>
                     </div>
                     <!--password-->
                     <div class="input-group mb-3 mr-sm-2">
@@ -41,7 +43,9 @@
                                 <img src="../Asset/login_psw_icon.svg" alt="@" width="20">
                             </div>
                         </div>
-                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password"  name="login_pwd"class="form-control" id="password" placeholder="Password">
+                        <div class="error_msg" id="pwd_empty"><p>Please fill in your password.</p></div>
+                        <div class="error_msg mt-1" id="login_failed"><p>Incorrect email or password.</p></div>
                     </div>
                     <button type="submit" class="btn btn-success btn-block mb-2">LOGIN</button>
                     <p class="text-center">
@@ -50,7 +54,7 @@
                 </form>
             </div>
         </div>
-        
-        
+
+
     </body>
 </html>

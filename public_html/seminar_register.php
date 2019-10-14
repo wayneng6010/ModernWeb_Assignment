@@ -24,7 +24,7 @@
                 <div class="py-0">
                     <h2 class="text-center">Seminar Registration</h2>
                     <hr>
-                    <form class="pt-1">
+                    <form class="pt-1" name="seminar_form" method="post" onsubmit="return seminar_form_validate()">
                         <div class="form-group">
                             <label for="seminar_session">Seminar Session</label>
                             <select class="form-control" id="seminar_session" required>
@@ -43,7 +43,7 @@
                             </div>
                             <input type="text" class="form-control" id="seminar_date" placeholder="Date" value="2 / 8 / 2020" readonly required>
                         </div>
-                        
+
                         <div class="input-group mb-3 mr-sm-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
@@ -55,7 +55,11 @@
 
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" min="1" max="5" value="1" placeholder="Quantity" required>
+                            <input type="number" name="seminar_quantity" id="seminar_quantity" class="form-control" id="quantity" step="1" min="1" max="5" value="1" placeholder="Quantity">
+                            <div class="error_msg" id="qty_empty"><p>Please enter quantity of ticket.</p></div>
+                            <div class="error_msg" id="qty_maxQty"><p>Sorry, maximum of 5 tickets only at one time for each seminar.</p></div>
+                            <div class="error_msg" id="qty_minQty"><p>Sorry, you must purchase at least 1 ticket.</p></div>
+                            <div class="error_msg" id="qty_isInt"><p>Quantity should be an integer.</p></div>
                             <p class="mt-2">* Note that only <i>maximum of 5 tickets</i> can be purchased at one time for each seminar.</p>
                         </div>
 
@@ -66,6 +70,6 @@
             </div>
         </div>
 
-        
+
     </body>
 </html>

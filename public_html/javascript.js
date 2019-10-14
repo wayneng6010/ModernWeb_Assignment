@@ -132,7 +132,12 @@ $(document).ready(function () {
             temp_members_arr = $.trim(temp_members_arr);
 
             // count number of elements (section members) in the array 
-            members_count = 1;
+            if (temp_members_arr === "") {
+                members_count = 0;
+            } else {
+                members_count = 1;
+            }
+
             // display array elements 
             this.value = temp_members_arr;
         }
@@ -142,37 +147,92 @@ $(document).ready(function () {
     });
 
     var orchestra_members = [];
+    var orchestra_members_temp = [];
 
     $("#orchestra_section_add").click(function () {
-        var section_name = $("#orchestra_section_name").val();
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+        $('textarea').css("border", "1px solid #ced4da");
 
-        // combine all members' names into array
-        var section_members = $("#orchestra_section_members").val().split(", ");
+        var orchestra_section_name = document.forms["orchestra_form"]["orchestra_section_name"].value;
+        var orchestra_section_members = document.forms["orchestra_form"]["orchestra_section_members"].value;
 
-        // store section_members array into associative array with index section_name
-        orchestra_members[section_name] = section_members;
+        var orchestra_section_members_temp = orchestra_section_members.split(", ");
+        orchestra_members_temp[orchestra_section_name] = orchestra_section_members_temp;
 
-        $("#orchestra_member_list tbody tr").remove();
+        var validate = true;
 
-        var counter = 1;
-
-        for (var i in orchestra_members)
-        {
-            var name_list = "";
-
-            $.each(orchestra_members[i], function (index, value) {
-                name_list += value + "<br>";
-            });
-
-            $('#orchestra_member_list tbody').append('<tr><th>' + counter + '</th><td>'
-                    + i + '</td><td>' + orchestra_members[i].length + '</td><td>' + name_list
-                    + '</td><td>' + 'Edit' + '</td></tr>');
-
-            counter += 1;
+        // validation for orchestra section name input
+        if (orchestra_section_name.length === 0) {
+            $("#section_empty").css("display", "block");
+            $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (orchestra_section_name.length > 30) {
+            $("#section_maxlength").css("display", "block");
+            $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(orchestra_section_name) || /\d/.test(orchestra_section_name)) {
+            $("#section_isnum").css("display", "block");
+            $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
+            validate = false;
         }
 
-        $("#orchestra_section_name").val("");
-        $("#orchestra_section_members").val("");
+        for (var i in orchestra_members_temp)
+        {
+            $.each(orchestra_members_temp[i], function (index, value) {
+                // validation for orchestra section name input
+                if (value.length === 0) {
+                    $("#member_empty").css("display", "block");
+                    $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+                    validate = false;
+                }
+                if (value.length > 30) {
+                    $("#member_maxlength").css("display", "block");
+                    $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+                    validate = false;
+                }
+                if ($.isNumeric(value) || /\d/.test(value)) {
+                    $("#member_isnum").css("display", "block");
+                    $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+                    validate = false;
+                }
+            });
+        }
+
+        if (validate) {
+            var section_name = $("#orchestra_section_name").val();
+
+            // combine all members' names into array
+            var section_members = $("#orchestra_section_members").val().split(", ");
+
+            // store section_members array into associative array with index section_name
+            orchestra_members[section_name] = section_members;
+
+            $("#orchestra_member_list tbody tr").remove();
+
+            var counter = 1;
+
+            for (var i in orchestra_members)
+            {
+                var name_list = "";
+
+                $.each(orchestra_members[i], function (index, value) {
+                    name_list += value + "<br>";
+                });
+
+                $('#orchestra_member_list tbody').append('<tr><th>' + counter + '</th><td>'
+                        + i + '</td><td>' + orchestra_members[i].length + '</td><td>' + name_list
+                        + '</td><td>' + 'Edit' + '</td></tr>');
+
+                counter += 1;
+            }
+
+            $("#orchestra_section_name").val("");
+            $("#orchestra_section_members").val("");
+        }
 
     });
 
@@ -585,6 +645,230 @@ $(document).ready(function () {
                 $("#member_count_insufficient").css("display", "block");
                 validate = false;
             }
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+
+    };
+
+    // instant validation on semiar form
+    $("#seminar_quantity").on('change', function () {
+        this.value = this.value.replace(/e|-/g, '');
+        if (!Number.isInteger(this.value)) {
+            this.value = Math.round(this.value);
+        }
+        if (this.value > 5) {
+            this.value = 5;
+        }
+        if (this.value < 1) {
+            this.value = 1;
+        }
+    });
+
+    // validate for seminar form
+    seminar_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var seminar_quantity = document.forms["seminar_form"]["seminar_quantity"].value;
+
+        var validate = true;
+
+        // validation for contestant name input
+        if (seminar_quantity.length === 0) {
+            $("#qty_empty").css("display", "block");
+            $('input[name="seminar_quantity"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (seminar_quantity > 5) {
+            $("#qty_maxQty").css("display", "block");
+            $('input[name="seminar_quantity"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (seminar_quantity < 1) {
+            $("#qty_minQty").css("display", "block");
+            $('input[name="seminar_quantity"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (!$.isNumeric(seminar_quantity) || Number.isInteger(seminar_quantity)) {
+            $("#qty_isInt").css("display", "block");
+            $('input[name="seminar_quantity"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+
+    };
+
+    // validate for login form
+    login_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var login_email = document.forms["login_form"]["login_email"].value;
+        var login_pwd = document.forms["login_form"]["login_pwd"].value;
+
+        var validate = true;
+
+        // validation for contestant name input
+        if (login_email.length === 0) {
+            $("#email_empty").css("display", "block");
+            $('input[name="login_email"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login_email) === false) {
+            $("#email_invalid").css("display", "block");
+            $('input[name="login_email"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        if (login_pwd.length === 0) {
+            $("#pwd_empty").css("display", "block");
+            $('input[name="login_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+
+    };
+
+    // validate for register form
+    $("#reg_hpno").on('change', function () {
+        this.value = this.value.replace(/\D|-/g, '');
+    });
+    
+    $("#reg_fname").on('change', function () {
+        this.value = $.trim(this.value);
+    });
+    
+    register_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var reg_fname = document.forms["register_form"]["reg_fname"].value;
+        var reg_email = document.forms["register_form"]["reg_email"].value;
+        var reg_hpno = document.forms["register_form"]["reg_hpno"].value;
+        var reg_pwd = document.forms["register_form"]["reg_pwd"].value;
+        var reg_cpwd = document.forms["register_form"]["reg_cpwd"].value;
+
+        var validate = true;
+
+        // validation for full name input
+        if (reg_fname.length === 0) {
+            $("#fname_empty").css("display", "block");
+            $('input[name="reg_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else  if (!reg_fname.match(' ')){
+            $("#fname_notFull").css("display", "block");
+            $('input[name="reg_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_fname.length > 30) {
+            $("#fname_maxlength").css("display", "block");
+            $('input[name="reg_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(reg_fname) || /\d/.test(reg_fname)) {
+            $("#fname_isnum").css("display", "block");
+            $('input[name="reg_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } 
+       
+        // validation for email input
+        if (reg_email.length === 0) {
+            $("#email_empty").css("display", "block");
+            $('input[name="reg_email"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reg_email) === false) {
+            $("#email_invalid").css("display", "block");
+            $('input[name="reg_email"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        if (reg_pwd.length === 0) {
+            $("#pwd_empty").css("display", "block");
+            $('input[name="reg_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for full name input
+        if (reg_hpno.length === 0) {
+            $("#hpno_empty").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (!$.isNumeric(reg_hpno) || /\D/.test(reg_hpno)) {
+            $("#hpno_isnum").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0,2) === "04" && reg_hpno.length < 9) {
+            $("#hpno_isMin").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0,2) === "01" && reg_hpno.length < 10) {
+            $("#hpno_isMin").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0,2) !== "04" && reg_hpno.substring(0,2) !== "01") {
+            $("#hpno_prefix").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_hpno.substring(0,2) === "01" && reg_hpno.length > 11) {
+            $("#hpno_isMax").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_hpno.substring(0,2) === "04" && reg_hpno.length > 10) {
+            $("#hpno_isMax").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for password input
+        if (reg_pwd.length === 0) {
+            $("#pwd_empty").css("display", "block");
+            $('input[name="reg_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_pwd.length < 8) {
+            $("#pwd_secure").css("display", "block");
+            $('input[name="reg_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_pwd.length > 20) {
+            $("#pwd_maxlength").css("display", "block");
+            $('input[name="reg_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for confirm password input
+        if (reg_cpwd.length === 0) {
+            $("#cpwd_empty").css("display", "block");
+            $('input[name="reg_cpwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_cpwd.length < 8) {
+            $("#cpwd_secure").css("display", "block");
+            $('input[name="reg_cpwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_cpwd !== reg_pwd) {
+            $("#cpwd_match").css("display", "block");
+            $('input[name="reg_cpwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_cpwd.length > 20) {
+            $("#cpwd_maxlength").css("display", "block");
+            $('input[name="reg_cpwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
         }
 
         // check if the form is fully validate
