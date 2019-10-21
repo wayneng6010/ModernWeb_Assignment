@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'php/sign_up_query.php';
+?>
 
 <!DOCTYPE html>
 <html>
@@ -15,16 +19,16 @@
     </head>
     <body>
         <?php include 'navbar.php'; ?>
-
+        
         <!--height spacing-->
         <div class="height_spacing"></div>
 
         <!--content-->
         <div class="container-fluid mt-5 px-5">
-            <div class="reg_container center d-block mx-auto w-50">
+            <div class="login_container center d-block mx-auto w-50">
                 <h2 class="text-center">Register an Account</h2>                    
                 <hr>
-                <form class="d-block mx-auto pt-2" name="register_form" method="post" onsubmit="return register_form_validate()">
+                <form class="d-block mx-auto pt-2" name="register_form" method="post" onsubmit="return register_form_validate()" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
                     <!--username-->
                     <div class="input-group mb-3 mr-sm-2">
                         <div class="input-group-prepend">
@@ -88,7 +92,7 @@
                         <div class="error_msg" id="cpwd_secure"><p>Password should be at least 8 characters.</p></div>
                         <div class="error_msg" id="cpwd_match"><p>Confirm password is not matching.</p></div>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block mb-2">SIGN UP</button>
+                    <button type="submit" class="btn btn-success btn-block mb-2" name="reg_submit">SIGN UP</button>
                     <p class="text-center">
                         <a href="log_in.php">Log in your account &#8594;</a>
                     </p>

@@ -117,9 +117,13 @@
 
                         </div>
                         <div class="clearfix"></div>
-                        <div class=" col-sm-3 float-right px-3 mt-2 mb-4">
+                        <div class="col-sm-2 float-left px-3 mt-2 mb-4">
+                            <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
+                        </div>
+                        <div class="col-sm-3 float-right px-3 mt-2 mb-4">
                             <button type="submit" class="btn btn-success btn-block">Confirm</button>
                         </div>
+                        
                     </form>
 
                 </div>

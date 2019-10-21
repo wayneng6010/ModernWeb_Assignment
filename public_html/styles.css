@@ -7,7 +7,7 @@ a:hover {
 }
 
 textarea {
-  resize: none;
+    resize: none;
 }
 
 input[readonly] {
@@ -213,7 +213,7 @@ label {
     .artist_img_portrait.first, .artist_img_bg.first {
 
     }
-    
+
     .login_container {
         width: 100% !important;
     }
@@ -241,6 +241,32 @@ label {
     margin: 0;
 }
 
+.msg_box {
+    position: absolute;
+    background-color: #33cc5c;
+    width: 215px;
+    height: 55px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    top: 100px;
+    right: 30px;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 1px 6px 0px rgba(0,0,0,0.3);
+}
+
+.msg_box.failed {
+    background-color: #e84141;
+}
+
+.msg_box p {
+    margin: 0;
+    padding-left: 10px;
+    line-height: .9;
+}
 
 
 
