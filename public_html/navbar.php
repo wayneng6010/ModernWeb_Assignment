@@ -11,39 +11,80 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link <?php if ($filename === 'index.php') { echo "active"; } ?>" href="index.php">Home</a>
+                <a class="nav-link <?php
+                if ($filename === 'index.php') {
+                    echo "active";
+                }
+                ?>" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if ($filename === 'about.php') { echo "active"; } ?>" href="about.php">About</a>
+                <a class="nav-link <?php
+                if ($filename === 'about.php') {
+                    echo "active";
+                }
+                ?>" href="about.php">About</a>
             </li>
 
             <!-- Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle <?php if ($filename === 'competition_register.php' || $filename === 'competition_rules.php' || $filename === 'competition_register_chromatic.php' || $filename === 'competition_register_ensemble.php' || $filename === 'competition_register_orchestra.php') { echo "active"; } ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle <?php
+                if ($filename === 'competition_register.php' || $filename === 'competition_rules.php' || $filename === 'competition_register_chromatic.php' || $filename === 'competition_register_ensemble.php' || $filename === 'competition_register_orchestra.php') {
+                    echo "active";
+                }
+                ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Competition
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item <?php if ($filename === 'competition_register.php') { echo "active"; } ?>" href="competition_register.php">Register</a>
-                    <a class="dropdown-item  <?php if ($filename === 'competition_rules.php') { echo "active"; } ?>" href="competition_rules.php">Rules</a>
+                    <a class="dropdown-item <?php
+                    if ($filename === 'competition_register.php') {
+                        echo "active";
+                    }
+                    ?>" href="competition_register.php">Register</a>
+                    <a class="dropdown-item  <?php
+                    if ($filename === 'competition_rules.php') {
+                        echo "active";
+                    }
+                    ?>" href="competition_rules.php">Rules</a>
                 </div>
             </li>
             <!-- /Dropdown -->
 
             <li class="nav-item">
-                <a class="nav-link <?php if ($filename === 'seminar.php' || $filename === 'seminar_register.php') { echo "active"; } ?>" href="seminar.php">Seminar</a>
+                <a class="nav-link <?php
+                if ($filename === 'seminar.php' || $filename === 'seminar_register.php') {
+                    echo "active";
+                }
+                ?>" href="seminar.php">Seminar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if ($filename === 'schedule.php') { echo "active"; } ?>" href="schedule.php">Schedule</a>
+                <a class="nav-link <?php
+                if ($filename === 'schedule.php') {
+                    echo "active";
+                }
+                ?>" href="schedule.php">Schedule</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if ($filename === 'contact_us.php') { echo "active"; } ?>" href="contact_us.php">Contact Us</a>
+                <a class="nav-link <?php
+                if ($filename === 'contact_us.php') {
+                    echo "active";
+                }
+                ?>" href="contact_us.php">Contact Us</a>
             </li>
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
             <a class="nav-link p-0" href="cart.php"><img src="../Asset/cart_icon.svg" width="30"></a>
-            <a class="nav-link pr-3" href="log_in.php">Log in</a>
-            <a class="btn btn-secondary my-2 my-sm-0 px-4" href="sign_up.php">Sign up</a>
+                <?php
+                if (isset($_SESSION['uLogin'])) {
+                    echo '<a class = "nav-link pr-3" href = "#">' . $_SESSION['uName'] . '</a>';
+                    echo '<a class = "btn btn-secondary my-2 my-sm-0 px-4" href = "php/logout_query.php">Logout</a>';
+                } else {
+                    echo '<a class = "nav-link pr-3" href = "log_in.php">Log in</a>';
+                    echo '<a class = "btn btn-secondary my-2 my-sm-0 px-4" href = "sign_up.php">Sign up</a>';
+                }
+                ?>
+
+
         </form>                               
     </div>
 </nav>

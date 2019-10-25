@@ -18,7 +18,7 @@ if (filter_input(INPUT_POST, 'reg_submit', FILTER_SANITIZE_URL) !== null) {
         $result_insert = mysqli_query($link, $sql_insert);
         if ($result_insert) {
             echo '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Sign up successful</p></div>';
-            header('refresh:2;url=log_in.php');
+            header('refresh:1;url=log_in.php');
         }
     } else {
         echo '<div class="msg_box failed"><img src="../Asset/cross_icon.svg" width="25" alt="@"><p>Email already exist</p></div>';

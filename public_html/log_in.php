@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'php/sign_in_query.php';
+?>
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +28,7 @@
             <div class="login_container center d-block mx-auto w-50">
                 <h2 class="text-center">Account Login</h2>                    
                 <hr>
-                <form method="post" name="login_form" class="d-block mx-auto" onsubmit="return login_form_validate()">
+                <form method="post" name="login_form" class="d-block mx-auto" onsubmit="return login_form_validate()" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
                     <!--email-->
                     <div class="pt-2 input-group mb-3 mr-sm-2">
                         <div class="input-group-prepend">
@@ -47,7 +51,7 @@
                         <div class="error_msg" id="pwd_empty"><p>Please fill in your password.</p></div>
                         <div class="error_msg mt-1" id="login_failed"><p>Incorrect email or password.</p></div>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block mb-2">LOGIN</button>
+                    <button type="submit" class="btn btn-success btn-block mb-2" name="login_submit">LOGIN</button>
                     <p class="text-center">
                         <a href="sign_up.php">Create your account &#8594;</a>
                     </p>
