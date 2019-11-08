@@ -20,13 +20,13 @@ $(document).ready(function () {
     });
 
     $("#seminar_session").on('change', function () {
-        if (this.value === "Cy Leo") {
+        if (this.value === "ses1") {
             $("#seminar_date").val("2 / 8 / 2020");
             $("#seminar_time").val("11:00 AM - 11:50 AM");
-        } else if (this.value === "Aiden N Evelyn") {
+        } else if (this.value === "ses2") {
             $("#seminar_date").val("2 / 8 / 2020");
             $("#seminar_time").val("12:00 AM - 12:50 PM");
-        } else if (this.value === "Rei Yamashita") {
+        } else if (this.value === "ses3") {
             $("#seminar_date").val("2 / 8 / 2020");
             $("#seminar_time").val("1:00 PM - 1:50 PM");
         } else {
@@ -50,7 +50,7 @@ $(document).ready(function () {
     });
 
     $("#ensemble_member_count").on('change', function () {
-        if (this.value === "Quartet (4 person)") {
+        if (this.value === "4") {
 
             // makes div invisible by adding d-none class
             $("#ensemble_third_outer").addClass("d-none");
@@ -60,7 +60,7 @@ $(document).ready(function () {
 //            $("#ensemble_third_outer #ensemble_third").prop('required', false);
 //            $("#ensemble_forth_outer #ensemble_forth").prop('required', false);
 
-        } else if (this.value === "Quintet (5 person)") {
+        } else if (this.value === "5") {
 
             // makes div visible by removing d-none class
             $("#ensemble_third_outer").removeClass("d-none");
@@ -74,7 +74,7 @@ $(document).ready(function () {
             // remove required attribute from #ensemble_forth
 //            $("#ensemble_forth_outer #ensemble_forth").prop('required', false);
 
-        } else if (this.value === "Sextet (6 person)") {
+        } else if (this.value === "6") {
 
             // makes div visible by removing d-none class
             $("#ensemble_third_outer").removeClass("d-none");
@@ -146,8 +146,8 @@ $(document).ready(function () {
         $("#orchestra_section_members_count").val(members_count + " person in this section");
     });
 
-    var orchestra_members = [];
-    var orchestra_members_temp = [];
+    var orchestra_members = {};
+    var orchestra_members_temp = {};
 
     $("#orchestra_section_add").click(function () {
         // makes all error message invisble
@@ -246,6 +246,9 @@ $(document).ready(function () {
 
             $("#orchestra_section_name").val("");
             $("#orchestra_section_members").val("");
+
+//            alert(JSON.stringify(orchestra_members));
+
         }
 
     });
@@ -564,11 +567,42 @@ $(document).ready(function () {
 
     };
 
-    // validate for chromatic solo form
+    function orchestra_register_submit() {
+//        for (var i in orchestra_members)
+//        {
+//            $.each(orchestra_members[i], function (index, value) {
+//                orchestra_members_JSON += value + "<br>";
+//            });
+//        }
+        var orchestra_members_json = JSON.stringify(orchestra_members);
+//        alert(orchestra_members_json);
+        $.ajax({
+            url: 'php/competition_register_orchestra_query.php',
+            type: 'post',
+//            contentType: "application/json",
+            data: {
+                section_arr: orchestra_members_json,
+                orchestra_category: $("#orchestra_category").val(),
+                orchestra_name: $("#orchestra_name").val(),
+                orchestra_title: $("#orchestra_title").val(),
+                orchestra_composer: $("#orchestra_composer").val(),
+                orchestra_arranger: $("#orchestra_arranger").val()
+            },
+            success: function (data) {
+                alert("Saved successfully");
+//                document.body.innerHTML += data;
+            },
+            error: function (exception) {
+                alert('Exception:' + exception);
+            }
+        });
+    }
+    // validate for orchestra form
     orchestra_form_validate = function () {
+
         // makes all error message invisble
         $(".error_msg").css("display", "none");
-        $('input').css("border", "1px solid #ced4da");
+        $('input, textarea').css("border", "1px solid #ced4da");
 
         var orchestra_name = document.forms["orchestra_form"]["orchestra_name"].value;
         var orchestra_title = document.forms["orchestra_form"]["orchestra_title"].value;
@@ -665,7 +699,7 @@ $(document).ready(function () {
         if (!validate) {
             return false;
         }
-
+        orchestra_register_submit();
     };
 
     // instant validation on semiar form
@@ -906,5 +940,7 @@ $(document).ready(function () {
             $(this).closest('form').find("input[type=text], input[type=number], textarea").val("");
         }
     });
+
+
 
 });

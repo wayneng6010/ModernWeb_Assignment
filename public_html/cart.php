@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+include 'php/cart_query.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +18,7 @@
     </head>
     <body>
         <?php include 'navbar.php'; ?>
-        
+
         <!--height spacing-->
         <div class="height_spacing"></div>
 
@@ -28,16 +31,59 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Contestant Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Song Title</th>
+                        <th scope="col">Composer</th>
+                        <th scope="col">Arranger</th>
                         <th scope="col">Accompaniment</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr id="list_empty_row">
-                        <th colspan="5" class="text-center">No registration</th>
-                    </tr>
+                    <?php
+                    $rowcount = mysqli_num_rows($result_select_chromatic);
+                    $counter = 1;
+                    if ($rowcount == 0) {
+                        echo '<tr id="list_empty_row"><th colspan="7" class="text-center">No registration</th></tr>';
+                    }
+                    while ($row = mysqli_fetch_assoc($result_select_chromatic)) {
+                        switch ($row['Solo_Cat']) {
+                            case "cat1":
+                                $Solo_Cat = "Elementary";
+                                break;
+                            case "cat2":
+                                $Solo_Cat = "Middle-High School";
+                                break;
+                            case "cat3":
+                                $Solo_Cat = "Adults";
+                                break;
+                            case "cat4":
+                                $Solo_Cat = "Seniors";
+                                break;
+                            default:
+                                $Solo_Cat = "Unknown";
+                                break;
+                        }
+                        if ($row['Solo_Accompaniment'] == "Piano") {
+                            $Solo_Accompaniment = $row['Solo_Pianist'];
+                        } else {
+                            $Solo_Accompaniment = $row['Solo_Accompaniment'];
+                        }
+                        echo "<tr>
+                                <td>" . $counter . "</td>
+                                <td>" . $Solo_Cat . "</td>
+                                <td>" . $row['Solo_Fname'] . "</td>
+                                <td>" . $row['Solo_Title'] . "</td>
+                                <td>" . $row['Solo_Composer'] . "</td>
+                                <td>" . $row['Solo_Arranger'] . "</td>
+                                <td>" . $Solo_Accompaniment . "</td>
+                                <td>Edit</td>
+                             </tr>";
+                        $counter += 1;
+                    }
+                    ?>
                 </tbody>
             </table>
 
@@ -47,16 +93,67 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Team Name</th>
                         <th scope="col">Song Title</th>
-                        <th scope="col">Team Members</th>
+                        <th scope="col">Composer</th>
+                        <th scope="col">Arranger</th>
+                        <th scope="col">Member</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="list_empty_row">
-                        <th colspan="5" class="text-center">No registration</th>
-                    </tr>
+                    <?php
+                    $rowcount = mysqli_num_rows($result_select_ensemble);
+                    $counter = 1;
+                    if ($rowcount == 0) {
+                        echo '<tr id="list_empty_row"><th colspan="8" class="text-center">No registration</th></tr>';
+                    }
+                    while ($row = mysqli_fetch_assoc($result_select_ensemble)) {
+                        switch ($row['Ensemble_Cat']) {
+                            case "cat1":
+                                $Ensemble_Cat = "Elementary";
+                                break;
+                            case "cat2":
+                                $Ensemble_Cat = "Middle-High School";
+                                break;
+                            case "cat3":
+                                $Ensemble_Cat = "Adults";
+                                break;
+                            case "cat4":
+                                $Ensemble_Cat = "Seniors";
+                                break;
+                            default:
+                                $Ensemble_Cat = "Unknown";
+                                break;
+                        }
+
+                        $Ensemble_Member = "First - " . $row['Ensemble_First'] . "<br>" .
+                                "Second - " . $row['Ensemble_Second'] . "<br>";
+
+                        if ($row['Ensemble_MemberCount'] == 5 || $row['Ensemble_MemberCount'] == 6) {
+                            $Ensemble_Member .= "Third - " . $row['Ensemble_Third'] . "<br>";
+                        }
+                        if ($row['Ensemble_MemberCount'] == 6) {
+                            $Ensemble_Member .= "Forth - " . $row['Ensemble_Forth'] . "<br>";
+                        }
+
+                        $Ensemble_Member .= "Bass - " . $row['Ensemble_Bass'] . "<br>" .
+                                "Chord - " . $row['Ensemble_Chord'] . "<br>";
+
+                        echo "<tr>
+                                <td>" . $counter . "</td>
+                                <td>" . $Ensemble_Cat . "</td>
+                                <td>" . $row['Ensemble_TeamName'] . "</td>
+                                <td>" . $row['Ensemble_Title'] . "</td>
+                                <td>" . $row['Ensemble_Composer'] . "</td>
+                                <td>" . $row['Ensemble_Arranger'] . "</td>
+                                <td>" . $Ensemble_Member . "</td>
+                                <td>Edit</td>
+                             </tr>";
+                        $counter += 1;
+                    }
+                    ?>
                 </tbody>
             </table>
 
@@ -66,19 +163,137 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Orchestra Name</th>
                         <th scope="col">Song Title</th>
-                        <th scope="col">Sections</th>
-                        <th scope="col">Total Number of Members</th>
+                        <th scope="col">Composer</th>
+                        <th scope="col">Arranger</th>
+                        <th scope="col">Section</th>
+                        <th scope="col">Members</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="list_empty_row">
-                        <th colspan="6" class="text-center">No registration</th>
-                    </tr>
+                    <?php
+                    $rowcount = mysqli_num_rows($result_select_orchestra);
+                    $counter = 1;
+                    if ($rowcount == 0) {
+                        echo '<tr id="list_empty_row"><th colspan="9" class="text-center">No registration</th></tr>';
+                    }
+                    while ($row = mysqli_fetch_assoc($result_select_orchestra)) {
+//                        $json_array = $row['Orchestra_Cat'];
+                        $json_array = (array) (json_decode($row['Orchestra_SectionName'], true));
+                        $orchestra_section_name = "";
+                        $orchestra_section_member = "";
+                        $row_span = 0;
+                        foreach ($json_array as $key => $value) {
+                            $row_span += 1;
+                        }
+                        switch ($row['Orchestra_Cat']) {
+                            case "cat1":
+                                $Orchestra_Cat = "Elementary";
+                                break;
+                            case "cat2":
+                                $Orchestra_Cat = "Middle-High School";
+                                break;
+                            case "cat3":
+                                $Orchestra_Cat = "Adults";
+                                break;
+                            case "cat4":
+                                $Orchestra_Cat = "Seniors";
+                                break;
+                            default:
+                                $Orchestra_Cat = "Unknown";
+                                break;
+                        }
+
+                        echo "<tr>
+                                <td rowspan = " . $row_span . ">" . $counter . "</td>
+                                <td rowspan = " . $row_span . ">" . $Orchestra_Cat . "</td>
+                                <td rowspan = " . $row_span . ">" . $row['Orchestra_Name'] . "</td>
+                                <td rowspan = " . $row_span . ">" . $row['Orchestra_Title'] . "</td>
+                                <td rowspan = " . $row_span . ">" . $row['Orchestra_Composer'] . "</td>
+                                <td rowspan = " . $row_span . ">" . $row['Orchestra_Arranger'] . "</td>";
+
+                        $first = true;
+                        foreach ($json_array as $key => $value) {
+                            if ($first) {
+                                $first = false;
+                                echo "<td>" . $key . "</td>";
+                                foreach ($value as $member) {
+                                    $orchestra_section_member .= $member . "<br>";
+                                }
+                                echo "<td>" . $orchestra_section_member . "</td>";
+                                $orchestra_section_member = "";
+                            }
+                        }
+
+                        echo "<td rowspan = " . $row_span . ">Edit</td>
+                             </tr>";
+                        
+                        foreach (array_slice($json_array, 1) as $key => $value) {
+                            echo "<tr>
+                                <td>" . $key . "</td>";
+                            foreach ($value as $member) {
+                                $orchestra_section_member .= $member . "<br>";
+                            }
+                            echo "<td>" . $orchestra_section_member . "</td></tr>";
+                            $orchestra_section_member = "";
+                        }
+
+                        $counter += 1;
+                    }
+                    ?>
                 </tbody>
             </table>
+            
+            <!--seminar table-->
+            <h4 class="text-center mt-4 mb-3">Seminar</h4>
+            <table class="table table-striped mb-5" id="solo_overview">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Session</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php
+                    $rowcount = mysqli_num_rows($result_select_seminar);
+                    $counter = 1;
+                    if ($rowcount == 0) {
+                        echo '<tr id="list_empty_row"><th colspan="7" class="text-center">No registration</th></tr>';
+                    }
+                    while ($row = mysqli_fetch_assoc($result_select_seminar)) {
+                        switch ($row['Sem_Session']) {
+                            case "ses1":
+                                $Sem_Session = "Cy Leo";
+                                break;
+                            case "ses2":
+                                $Sem_Session = "Aiden N Evelyn";
+                                break;
+                            case "ses3":
+                                $Sem_Session = "Rei Yamashita";
+                                break;
+                            default:
+                                $Sem_Session = "Unknown";
+                                break;
+                        }
+
+                        echo "<tr>
+                                <td>" . $counter . "</td>
+                                <td>" . $Sem_Session . "</td>
+                                <td>" . $row['Sem_Quantity'] . "</td>
+                                <td>Edit</td>
+                             </tr>";
+                        $counter += 1;
+                    }
+                    ?>
+                </tbody>
+            </table>
+
         </div>
 
         <!--blank spacing-->
@@ -93,6 +308,6 @@
             <a href="checkout.php" class="btn btn-success px-5" id="checkout_btn">Check Out</a>
         </nav>
 
-        
+
     </body>
 </html>

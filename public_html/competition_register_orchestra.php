@@ -1,4 +1,9 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['uID'])) {
+    header('Location: log_in.php');
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,8 +15,12 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
         <link rel="stylesheet" type="text/css" href="styles.css">
         <script src="javascript.js"></script>
+        <script>
+            </script>
     </head>
     <body>
         <?php include 'navbar.php'; ?>
@@ -31,10 +40,10 @@
                             <div class="col-sm-10">
                                 <select class="form-control" name="orchestra_category" id="orchestra_category" style="border-color: grey;">
                                     <option disabled>Choose a category</option>
-                                    <option>Elementary (age of 12 and below)</option>
-                                    <option>Middle-High School (age of 13~18)</option>
-                                    <option>Adults (age of 19~59)</option>
-                                    <option>Senior (age of 60 and above)</option>
+                                    <option value="cat1">Elementary (age of 12 and below)</option>
+                                    <option value="cat2">Middle-High School (age of 13~18)</option>
+                                    <option value="cat3">Adults (age of 19~59)</option>
+                                    <option value="cat4">Senior (age of 60 and above)</option>
                                 </select>
                             </div>
                         </div>
@@ -156,7 +165,7 @@
                             <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
                         </div>
                         <div class="col-sm-3 float-right px-3 mt-2 mb-4">
-                            <button type="submit" class="btn btn-success btn-block">Confirm</button>
+                            <button type="submit" name="reg_submit" class="btn btn-success btn-block">Confirm</button>
                         </div>
                     </form>
 

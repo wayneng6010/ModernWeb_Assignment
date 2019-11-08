@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+include 'php/seminar_query.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,14 +27,14 @@
                 <div class="py-0">
                     <h2 class="text-center">Seminar Registration</h2>
                     <hr>
-                    <form class="pt-1" name="seminar_form" method="post" onsubmit="return seminar_form_validate()">
+                    <form class="pt-1" name="seminar_form" method="post" onsubmit="return seminar_form_validate()" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
                         <div class="form-group">
                             <label for="seminar_session">Seminar Session</label>
-                            <select class="form-control" id="seminar_session" required>
+                            <select class="form-control" name="seminar_session" id="seminar_session" required>
                                 <option disabled>Choose a session</option>
-                                <option>Cy Leo</option>
-                                <option>Aiden N Evelyn</option>
-                                <option>Rei Yamashita</option>
+                                <option value="ses1">Cy Leo</option>
+                                <option value="ses2">Aiden N Evelyn</option>
+                                <option value="ses3">Rei Yamashita</option>
                             </select>
                         </div>
 
@@ -63,7 +66,7 @@
                             <p class="mt-2">* Note that only <i>maximum of 5 tickets</i> can be purchased at one time for each seminar.</p>
                         </div>
 
-                        <button type="submit" class="btn btn-success px-5 float-right btn-block">Confirm</button>
+                        <button type="submit" name="reg_submit" class="btn btn-success px-5 float-right btn-block">Confirm</button>
 
                     </form>
                 </div>

@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+include 'php/competition_register_chromatic_query.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,16 +28,16 @@
                     <h2 class="text-center">Chromatic Solo Registration</h2>
                     <hr>
 
-                    <form method="post" name="chromatic_solo_form" onsubmit="return chromatic_form_validate()">
+                    <form method="post" name="chromatic_solo_form" onsubmit="return chromatic_form_validate()" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
                             <label for="solo_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" required>
                                     <option disabled>Choose a category</option>
-                                    <option>Elementary (age of 12 and below)</option>
-                                    <option>Middle-High School (age of 13~18)</option>
-                                    <option>Adults (age of 19~59)</option>
-                                    <option>Senior (age of 60 and above)</option>
+                                    <option value="cat1">Elementary (age of 12 and below)</option>
+                                    <option value="cat2">Middle-High School (age of 13~18)</option>
+                                    <option value="cat3">Adults (age of 19~59)</option>
+                                    <option value="cat4">Senior (age of 60 and above)</option>
                                 </select>
                             </div>
                         </div>
@@ -121,7 +124,7 @@
                             <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
                         </div>
                         <div class="col-sm-3 float-right px-3 mt-2 mb-4">
-                            <button type="submit" class="btn btn-success btn-block">Confirm</button>
+                            <button type="submit" name="reg_submit" class="btn btn-success btn-block">Confirm</button>
                         </div>
                         
                     </form>

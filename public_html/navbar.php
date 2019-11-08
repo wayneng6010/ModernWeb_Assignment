@@ -83,8 +83,13 @@
                     echo '<a class = "btn btn-secondary my-2 my-sm-0 px-4" href = "sign_up.php">Sign up</a>';
                 }
                 ?>
-
-
         </form>                               
     </div>
 </nav>
+
+<?php
+if (isset($_SESSION['uLogout'])) {
+    echo '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Logout successful</p></div>';
+    session_destroy();
+}
+?>
