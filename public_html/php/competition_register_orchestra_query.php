@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once 'conn.php';
 $json_array = (array) (json_decode($_POST["section_arr"], true));
@@ -10,19 +11,32 @@ foreach ($json_array as $key => $value) {
         $orchestra_section_member .= $member . ",";
     }
 }
+
+$orchestra_ID = filter_input(INPUT_POST, 'orchestra_ID', FILTER_SANITIZE_NUMBER_INT);
 $orchestra_category = filter_input(INPUT_POST, 'orchestra_category', FILTER_SANITIZE_STRING);
 $orchestra_name = filter_input(INPUT_POST, 'orchestra_name', FILTER_SANITIZE_STRING);
 $orchestra_title = filter_input(INPUT_POST, 'orchestra_title', FILTER_SANITIZE_STRING);
 $orchestra_composer = filter_input(INPUT_POST, 'orchestra_composer', FILTER_SANITIZE_STRING);
 $orchestra_arranger = filter_input(INPUT_POST, 'orchestra_arranger', FILTER_SANITIZE_STRING);
 
-$sql_insert = "INSERT INTO orchestra_cat VALUES(null, $_SESSION[uID],'$orchestra_category', '$orchestra_name', '$orchestra_title', '$orchestra_composer', '$orchestra_arranger', '$_POST[section_arr]', '$orchestra_section_member', 'pending', null)";
-$result_insert = mysqli_query($link, $sql_insert);
-if ($result_insert) {
-    echo '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Saved successfully</p></div>';
-    header('refresh:1;url= ' . filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL));
+if ($orchestra_ID == null) {
+    $sql_insert = "INSERT INTO orchestra_cat VALUES(null, $_SESSION[uID],'$orchestra_category', '$orchestra_name', '$orchestra_title', '$orchestra_composer', '$orchestra_arranger', '$_POST[section_arr]', '$orchestra_section_member', 'pending', null)";
+    $result_insert = mysqli_query($link, $sql_insert);
+    if ($result_insert) {
+        echo '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Saved successfully</p></div>';
+        header('refresh:1;url= ' . filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL));
+    } else {
+        echo '<script>alert("Error occured, please try again")</script>';
+    }
 } else {
-    echo '<script>alert("Error occured, please try again")</script>';
+    $sql_insert_update = "UPDATE orchestra_cat SET `Orchestra_Cat`='$orchestra_category', `Orchestra_Name`='$orchestra_name', `Orchestra_Title`='$orchestra_title',`Orchestra_Composer`='$orchestra_composer',`Orchestra_Arranger`='$orchestra_arranger',`Orchestra_SectionName`='$_POST[section_arr]',`Orchestra_SectionMember`='$orchestra_section_member' WHERE `Orchestra_ID`='$orchestra_ID' AND `Orchestra_UserID` = $_SESSION[uID]";
+    $result_insert_update = mysqli_query($link, $sql_insert_update);
+    if ($result_insert_update) {
+        echo '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Updated successfully</p></div>';
+        header('refresh:1;url=cart.php');
+    } else {
+        echo '<script>alert("Error occured, please try again")</script>';
+    }
 }
 //echo $array;
 //foreach($array as $key => $value) {  
@@ -52,5 +66,4 @@ if ($result_insert) {
 //        echo '<script>alert("Error occured, please try again")</script>';
 //    }
 //}
-
 ?>

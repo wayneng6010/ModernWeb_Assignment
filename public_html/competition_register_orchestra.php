@@ -1,7 +1,26 @@
 <?php
+require_once 'php/conn.php';
 session_start();
 if (!isset($_SESSION['uID'])) {
     header('Location: log_in.php');
+}
+
+if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
+    $orchestraID = filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING);
+    $sql_select_update = "SELECT * FROM orchestra_cat WHERE Orchestra_ID = '$orchestraID' AND Orchestra_UserID = $_SESSION[uID]";
+    $result_select_update = mysqli_query($link, $sql_select_update);
+    $rowcount = mysqli_num_rows($result_select_update);
+    if ($rowcount == 0) {
+        echo '<script>alert("This registration data does not exist.")</script>';
+    } else {
+        $item_update = mysqli_fetch_assoc($result_select_update);
+        $Orchestra_Cat = $item_update['Orchestra_Cat'];
+        $Orchestra_Name = $item_update['Orchestra_Name'];
+        $Orchestra_Title = $item_update['Orchestra_Title'];
+        $Orchestra_Composer = $item_update['Orchestra_Composer'];
+        $Orchestra_Arranger = $item_update['Orchestra_Arranger'];
+        $Orchestra_SectionName = $item_update['Orchestra_SectionName'];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -19,12 +38,16 @@ if (!isset($_SESSION['uID'])) {
 
         <link rel="stylesheet" type="text/css" href="styles.css">
         <script src="javascript.js"></script>
-        <script>
-            </script>
+        <?php
+        if (isset($Orchestra_SectionName)) {
+            echo '<script>var orchestra_members_restore = ' . $Orchestra_SectionName . ';</script>';
+        }
+        ?>
+
     </head>
     <body>
         <?php include 'navbar.php'; ?>
-        
+
         <!--height spacing-->
         <div class="height_spacing"></div>
 
@@ -35,15 +58,46 @@ if (!isset($_SESSION['uID'])) {
                     <hr>
 
                     <form name="orchestra_form" method="post" onsubmit="return orchestra_form_validate()">
+                        <input type="number" name="orchestra_ID" id="orchestra_ID" novalidate value="<?php
+                        if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
+                            echo filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING);
+                        }
+                        ?>" style="display: none;">
+
+
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
-                            <label for="solo_category" class="col-form-label col-sm-2">Category</label>
+                            <label for="orchestra_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="orchestra_category" id="orchestra_category" style="border-color: grey;">
                                     <option disabled>Choose a category</option>
-                                    <option value="cat1">Elementary (age of 12 and below)</option>
-                                    <option value="cat2">Middle-High School (age of 13~18)</option>
-                                    <option value="cat3">Adults (age of 19~59)</option>
-                                    <option value="cat4">Senior (age of 60 and above)</option>
+                                    <option <?php
+                                    if (isset($Orchestra_Cat)) {
+                                        if ($Orchestra_Cat == 'cat1') {
+                                            echo"selected";
+                                        }
+                                    }
+                                    ?> value="cat1">Elementary (age of 12 and below)</option>
+                                    <option <?php
+                                    if (isset($Orchestra_Cat)) {
+                                        if ($Orchestra_Cat == 'cat2') {
+                                            echo"selected";
+                                        }
+                                    }
+                                    ?> value="cat2">Middle-High School (age of 13~18)</option>
+                                    <option <?php
+                                    if (isset($Orchestra_Cat)) {
+                                        if ($Orchestra_Cat == 'cat3') {
+                                            echo"selected";
+                                        }
+                                    }
+                                    ?> value="cat3">Adults (age of 19~59)</option>
+                                    <option <?php
+                                    if (isset($Orchestra_Cat)) {
+                                        if ($Orchestra_Cat == 'cat4') {
+                                            echo"selected";
+                                        }
+                                    }
+                                    ?> value="cat4">Senior (age of 60 and above)</option>
                                 </select>
                             </div>
                         </div>
@@ -57,7 +111,11 @@ if (!isset($_SESSION['uID'])) {
                                         <img src="../Asset/contestant_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="orchestra_name" id="orchestra_name" placeholder="Orchestra Name">
+                                <input type="text" class="form-control" name="orchestra_name" id="orchestra_name" placeholder="Orchestra Name" value="<?php
+                                if (isset($Orchestra_Name)) {
+                                    echo $Orchestra_Name;
+                                }
+                                ?>">
                                 <div class="error_msg" id="oname_empty"><p>Please fill in orchestra name.</p></div>
                                 <div class="error_msg" id="oname_maxlength"><p>Orchestra name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="oname_isnum"><p>Orchestra name should not be an number or contain any number.</p></div>
@@ -69,7 +127,11 @@ if (!isset($_SESSION['uID'])) {
                                         <img src="../Asset/song_title_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="orchestra_title" id="orchestra_title" placeholder="Song Title">
+                                <input type="text" class="form-control" name="orchestra_title" id="orchestra_title" placeholder="Song Title" value="<?php
+                                if (isset($Orchestra_Title)) {
+                                    echo $Orchestra_Title;
+                                }
+                                ?>">
                                 <div class="error_msg" id="title_empty"><p>Please fill in song title.</p></div>
                                 <div class="error_msg" id="title_maxlength"><p>Song title is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="title_isnum"><p>Song title should not be an number.</p></div>
@@ -81,7 +143,11 @@ if (!isset($_SESSION['uID'])) {
                                         <img src="../Asset/composer_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="orchestra_composer" class="orchestra_composer" id="orchestra_composer" placeholder="Composer">
+                                <input type="text" class="form-control" name="orchestra_composer" class="orchestra_composer" id="orchestra_composer" placeholder="Composer" value="<?php
+                                if (isset($Orchestra_Composer)) {
+                                    echo $Orchestra_Composer;
+                                }
+                                ?>">
                                 <div class="error_msg" id="compsr_empty"><p>Please fill in composer name.</p></div>
                                 <div class="error_msg" id="compsr_maxlength"><p>Composer name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="compsr_isnum"><p>Composer name should not be an number or contain any number.</p></div>
@@ -93,7 +159,11 @@ if (!isset($_SESSION['uID'])) {
                                         <img src="../Asset/arranger_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="orchestra_arranger" class="orchestra_arranger" id="orchestra_arranger" placeholder="Arranger">
+                                <input type="text" class="form-control" name="orchestra_arranger" class="orchestra_arranger" id="orchestra_arranger" placeholder="Arranger" value="<?php
+                                if (isset($Orchestra_Arranger)) {
+                                    echo $Orchestra_Arranger;
+                                }
+                                ?>">
                                 <div class="error_msg" id="arranger_empty"><p>Please fill in arranger name.</p></div>
                                 <div class="error_msg" id="arranger_maxlength"><p>Arranger name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="arranger_isnum"><p>Arranger name should not be an number or contain any number.</p></div>
@@ -123,7 +193,7 @@ if (!isset($_SESSION['uID'])) {
                                     </div>
                                 </div>
                                 <textarea class="form-control" name="orchestra_section_members" id="orchestra_section_members" style="height: 92px;" placeholder="Section Members' Names ( separate each member by an new line or comma )"></textarea>
-                                <div class="error_msg" id="member_empty"><p>Please fill at least one member name.</p></div>
+                                <div class="error_msg" id="member_empty"><p>Please fill at least one member name or one of the member's name is missing.</p></div>
                                 <div class="error_msg" id="member_maxlength"><p>One or some of the member names is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="member_isnum"><p>All of the member names should not be an number or contain any number.</p></div>
                             </div>
@@ -165,7 +235,13 @@ if (!isset($_SESSION['uID'])) {
                             <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
                         </div>
                         <div class="col-sm-3 float-right px-3 mt-2 mb-4">
-                            <button type="submit" name="reg_submit" class="btn btn-success btn-block">Confirm</button>
+                            <button type="submit" name="reg_submit" class="btn btn-success btn-block"><?php
+                                if (isset($orchestraID)) {
+                                    echo "Update";
+                                } else {
+                                    echo "Confirm";
+                                }
+                                ?></button>
                         </div>
                     </form>
 
@@ -173,6 +249,64 @@ if (!isset($_SESSION['uID'])) {
             </div>
         </div>
 
-        
+
     </body>
+    <script>
+        function restore_section(orchestra_members_restore) {
+//                alert(orchestra_members_restore);
+            $("#orchestra_member_list tbody tr").remove();
+
+            var counter = 1;
+            var total_member = 0;
+
+            for (var i in orchestra_members_restore)
+            {
+                var name_list = "";
+
+                $.each(orchestra_members_restore[i], function (index, value) {
+                    name_list += value + "<br>";
+                });
+                var name_list_stored = name_list.replace(/<br>/g, ", ");
+                name_list_stored = name_list_stored.substring(0, name_list_stored.length - 2);
+                $('#orchestra_member_list tbody').append('<tr><th>' + counter + '</th><td>'
+                        + i + '</td><td>' + orchestra_members_restore[i].length + '</td><td>' + name_list
+                        + '</td><td><button onclick="edit_restore(this.value)" class="text-primary edit_btn" type="button" value="' + i + ':' + name_list_stored + '">' + 'Edit' + '</button></td></tr>');
+
+                counter += 1;
+                total_member += orchestra_members_restore[i].length;
+            }
+
+            $('#orchestra_member_list tbody').append('<tr style="background-color: #7a7a7a; color: white;"><th></th><td class="text-right"><b>Total</b></td><td>' + total_member + '</td><td></td><td></td></tr>');
+
+            $("#orchestra_section_name").val("");
+            $("#orchestra_section_members").val("");
+        }
+
+        if (typeof orchestra_members_restore !== 'undefined') {
+            restore_section(orchestra_members_restore);
+        }
+
+        function edit_restore(val) {
+//            orchestra_section_members
+//            orchestra_section_name
+//            alert($("#orchestra_section_member").val());
+//            var orchestra_members = JSON.parse($("#orchestra_section_member").val());
+            var value = val.split(':');
+            var name = value[0];
+            var members = value[1];
+
+            $("#orchestra_section_name").val(name);
+            $("#orchestra_section_members").val(members);
+            $("#orchestra_section_add").html("Update");
+//            alert(orchestra_members);
+//            alert(orchestra_members[val]);
+        }
+
+        if (typeof document.getElementsByClassName("msg_box") !== 'undefined') {
+            setInterval(function () {
+                $(".msg_box").fadeOut();
+            }, 2000);
+        }
+        
+    </script>
 </html>

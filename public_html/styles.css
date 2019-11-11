@@ -269,6 +269,15 @@ label {
     line-height: .9;
 }
 
+.edit_btn {
+    border: none;
+    background: none;
+    
+}
+
+.edit_btn:hover{
+    filter: brightness(.8);
+}
 
 
 

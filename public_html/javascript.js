@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
 
     $(".artist_img_portrait.first, .artist_content.first").mousemove(function (e) {
         var newvalueX = 0.01 * e.pageX;
@@ -149,108 +150,131 @@ $(document).ready(function () {
     var orchestra_members = {};
     var orchestra_members_temp = {};
 
+    if (typeof orchestra_members_restore !== 'undefined') {
+        orchestra_members = orchestra_members_restore;
+    }
+//    document.getElementById ("orchestra_section_add").addEventListener ("click", add_section_validation);
+
     $("#orchestra_section_add").click(function () {
+
         // makes all error message invisble
         $(".error_msg").css("display", "none");
         $('input').css("border", "1px solid #ced4da");
         $('textarea').css("border", "1px solid #ced4da");
 
-
-
         var orchestra_section_name = document.forms["orchestra_form"]["orchestra_section_name"].value;
         var orchestra_section_members = document.forms["orchestra_form"]["orchestra_section_members"].value;
-
-        var orchestra_section_members_temp = orchestra_section_members.split(", ");
-        orchestra_members_temp[orchestra_section_name] = orchestra_section_members_temp;
-
         var validate = true;
 
-        // validation for same section name
-        if (orchestra_members.hasOwnProperty(orchestra_section_name)) {
-            alert("Section name exist");
-            validate = false;
-        }
-
-        // validation for orchestra section name input
         if (orchestra_section_name.length === 0) {
             $("#section_empty").css("display", "block");
             $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
             validate = false;
         }
-        if (orchestra_section_name.length > 30) {
-            $("#section_maxlength").css("display", "block");
-            $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
-            validate = false;
-        }
-        if ($.isNumeric(orchestra_section_name) || /\d/.test(orchestra_section_name)) {
-            $("#section_isnum").css("display", "block");
-            $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
-            validate = false;
-        }
 
-        for (var i in orchestra_members_temp)
-        {
-            $.each(orchestra_members_temp[i], function (index, value) {
-                // validation for orchestra section name input
-                if (value.length === 0) {
-                    $("#member_empty").css("display", "block");
-                    $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
-                    validate = false;
-                }
-                if (value.length > 30) {
-                    $("#member_maxlength").css("display", "block");
-                    $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
-                    validate = false;
-                }
-                if ($.isNumeric(value) || /\d/.test(value)) {
-                    $("#member_isnum").css("display", "block");
-                    $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
-                    validate = false;
-                }
-            });
+        if (orchestra_section_members.length === 0) {
+            $("#member_empty").css("display", "block");
+            $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+            validate = false;
         }
 
         if (validate) {
-            $("#orchestra_section_members_count").val("");
+            var orchestra_section_members_temp = orchestra_section_members.split(", ");
+            orchestra_members_temp[orchestra_section_name] = orchestra_section_members_temp;
 
-            var section_name = $("#orchestra_section_name").val();
-
-            // combine all members' names into array
-            var section_members = $("#orchestra_section_members").val().split(", ");
-
-            // store section_members array into associative array with index section_name
-            orchestra_members[section_name] = section_members;
-
-            $("#orchestra_member_list tbody tr").remove();
-
-            var counter = 1;
-            var total_member = 0;
-
-            for (var i in orchestra_members)
-            {
-                var name_list = "";
-
-                $.each(orchestra_members[i], function (index, value) {
-                    name_list += value + "<br>";
-                });
-
-                $('#orchestra_member_list tbody').append('<tr><th>' + counter + '</th><td>'
-                        + i + '</td><td>' + orchestra_members[i].length + '</td><td>' + name_list
-                        + '</td><td>' + 'Edit' + '</td></tr>');
-
-                counter += 1;
-                total_member += orchestra_members[i].length;
+            // validation for same section name
+            if (orchestra_members.hasOwnProperty(orchestra_section_name) && $("#orchestra_section_add").html() !== "Update") {
+                alert("Section name exist");
+                validate = false;
+            }
+            // validation for orchestra section name input
+            if (orchestra_section_name.length === 0) {
+                $("#section_empty").css("display", "block");
+                $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if (orchestra_section_name.length > 30) {
+                $("#section_maxlength").css("display", "block");
+                $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
+                validate = false;
+            }
+            if ($.isNumeric(orchestra_section_name) || /\d/.test(orchestra_section_name)) {
+                $("#section_isnum").css("display", "block");
+                $('input[name="orchestra_section_name"]').css("border", "1px solid #ff7d7d");
+                validate = false;
             }
 
-            $('#orchestra_member_list tbody').append('<tr style="background-color: #7a7a7a; color: white;"><th></th><td class="text-right"><b>Total</b></td><td>' + total_member + '</td><td></td><td></td></tr>');
+            for (var i in orchestra_members_temp)
+            {
+                $.each(orchestra_members_temp[i], function (index, value) {
+                    // validation for orchestra section name input
+                    if (value.length === 0) {
+                        $("#member_empty").css("display", "block");
+                        $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+                        validate = false;
+                    }
+                    if (value.length > 30) {
+                        $("#member_maxlength").css("display", "block");
+                        $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+                        validate = false;
+                    }
+                    if ($.isNumeric(value) || /\d/.test(value)) {
+                        $("#member_isnum").css("display", "block");
+                        $('textarea[name="orchestra_section_members"]').css("border", "1px solid #ff7d7d");
+                        validate = false;
+                    }
+                });
+            }
 
-            $("#orchestra_section_name").val("");
-            $("#orchestra_section_members").val("");
+            if (validate) {
+                $("#orchestra_section_members_count").val("");
 
+                var section_name = $("#orchestra_section_name").val();
+
+                // combine all members' names into array
+                var section_members = $("#orchestra_section_members").val().split(", ");
+
+                // store section_members array into associative array with index section_name
+                orchestra_members[section_name] = section_members;
+//                $("#orchestra_section_member").val(JSON.stringify(orchestra_members));
+                
+                $("#orchestra_member_list tbody tr").remove();
+
+                var counter = 1;
+                var total_member = 0;
+
+                for (var i in orchestra_members)
+                {
+                    var name_list = "";
+                    
+                    $.each(orchestra_members[i], function (index, value) {
+                        name_list += value + "<br>";
+                    });
+                    
+                    var name_list_stored = name_list.replace(/<br>/g, ", ");
+                    name_list_stored = name_list_stored.substring(0, name_list_stored.length - 2);
+                    
+                    $('#orchestra_member_list tbody').append('<tr><th>' + counter + '</th><td>'
+                            + i + '</td><td>' + orchestra_members[i].length + '</td><td>' + name_list
+                            + '</td><td><button onclick="edit_restore(this.value)" class="text-primary edit_btn" type="button" value="' + section_name + ':' + name_list_stored + '">' + 'Edit' + '</button></td></tr>');
+
+                    counter += 1;
+                    total_member += orchestra_members[i].length;
+                }
+
+                $('#orchestra_member_list tbody').append('<tr style="background-color: #7a7a7a; color: white;"><th></th><td class="text-right"><b>Total</b></td><td>' + total_member + '</td><td></td><td></td></tr>');
+
+                $("#orchestra_section_name").val("");
+                $("#orchestra_section_members").val("");
+
+                if ($("#orchestra_section_add").html() === "Update") {
+                    document.body.innerHTML += '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Updated successfully</p></div>';
+                    $("#orchestra_section_add").html("Add Section");
+                }
 //            alert(JSON.stringify(orchestra_members));
 
+            }
         }
-
     });
 
     //validation
@@ -340,7 +364,7 @@ $(document).ready(function () {
         }
 
         // validation for pianist input
-        if (!$("#solo_pianist_outer").hasClass("d-none")) {
+        if (!$("#solo_pianist_outer").hasClass("d-none") && solo_accompaniment === "Piano") {
             if (solo_pianist.length === 0) {
                 $("#pianist_empty").css("display", "block");
                 $('input[name="solo_pianist"]').css("border", "1px solid #ff7d7d");
@@ -567,6 +591,9 @@ $(document).ready(function () {
 
     };
 
+
+
+
     function orchestra_register_submit() {
 //        for (var i in orchestra_members)
 //        {
@@ -586,10 +613,12 @@ $(document).ready(function () {
                 orchestra_name: $("#orchestra_name").val(),
                 orchestra_title: $("#orchestra_title").val(),
                 orchestra_composer: $("#orchestra_composer").val(),
-                orchestra_arranger: $("#orchestra_arranger").val()
+                orchestra_arranger: $("#orchestra_arranger").val(),
+                orchestra_ID: $("#orchestra_ID").val()
             },
             success: function (data) {
                 alert("Saved successfully");
+                window.location.replace("cart.php");
 //                document.body.innerHTML += data;
             },
             error: function (exception) {

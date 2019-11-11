@@ -29,15 +29,17 @@ include 'php/competition_register_chromatic_query.php';
                     <hr>
 
                     <form method="post" name="chromatic_solo_form" onsubmit="return chromatic_form_validate()" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
+                        <input type="number" name="solo_ID" novalidate value="<?php if (filter_input(INPUT_GET, 'soloID', FILTER_SANITIZE_STRING) !== null){echo filter_input(INPUT_GET, 'soloID', FILTER_SANITIZE_STRING);} ?>" style="display: none;">
+
                         <div class="form-group row col-sm-8 px-0 mt-4 mx-auto mb-4">
                             <label for="solo_category" class="col-form-label col-sm-2">Category</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="solo_category" id="solo_category" style="border-color: grey;" required>
                                     <option disabled>Choose a category</option>
-                                    <option value="cat1">Elementary (age of 12 and below)</option>
-                                    <option value="cat2">Middle-High School (age of 13~18)</option>
-                                    <option value="cat3">Adults (age of 19~59)</option>
-                                    <option value="cat4">Senior (age of 60 and above)</option>
+                                    <option <?php if(isset($Solo_Cat)){if($Solo_Cat == 'cat1'){echo"selected";}} ?> value="cat1">Elementary (age of 12 and below)</option>
+                                    <option <?php if(isset($Solo_Cat)){if($Solo_Cat == 'cat2'){echo"selected";}} ?> value="cat2">Middle-High School (age of 13~18)</option>
+                                    <option <?php if(isset($Solo_Cat)){if($Solo_Cat == 'cat3'){echo"selected";}} ?> value="cat3">Adults (age of 19~59)</option>
+                                    <option <?php if(isset($Solo_Cat)){if($Solo_Cat == 'cat4'){echo"selected";}} ?> value="cat4">Senior (age of 60 and above)</option>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +53,7 @@ include 'php/competition_register_chromatic_query.php';
                                         <img src="../Asset/contestant_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_contestant_name" id="solo_contestant_name" placeholder="Contestant Name" >
+                                <input type="text" class="form-control" name="solo_contestant_name" id="solo_contestant_name" placeholder="Contestant Name" value="<?php if(isset($Solo_Fname)){echo $Solo_Fname;} ?>">
                                 <div class="error_msg" id="cname_empty"><p>Please fill in contestant name.</p></div>
                                 <div class="error_msg" id="cname_maxlength"><p>Contestant name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="cname_isnum"><p>Contestant name should not be an number or contain any number.</p></div>
@@ -63,7 +65,7 @@ include 'php/competition_register_chromatic_query.php';
                                         <img src="../Asset/song_title_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_title" id="solo_title" placeholder="Song Title" >
+                                <input type="text" class="form-control" name="solo_title" id="solo_title" placeholder="Song Title" value="<?php if(isset($Solo_Title)){echo $Solo_Title;} ?>">
                                 <div class="error_msg" id="title_empty"><p>Please fill in song title.</p></div>
                                 <div class="error_msg" id="title_maxlength"><p>Song title is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="title_isnum"><p>Song title should not be an number.</p></div>
@@ -75,7 +77,7 @@ include 'php/competition_register_chromatic_query.php';
                                         <img src="../Asset/composer_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_composer" id="solo_composer" placeholder="Composer" >
+                                <input type="text" class="form-control" name="solo_composer" id="solo_composer" placeholder="Composer" value="<?php if(isset($Solo_Composer)){echo $Solo_Composer;} ?>">
                                 <div class="error_msg" id="compsr_empty"><p>Please fill in composer name.</p></div>
                                 <div class="error_msg" id="compsr_maxlength"><p>Composer name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="compsr_isnum"><p>Composer name should not be an number or contain any number.</p></div>
@@ -87,7 +89,7 @@ include 'php/competition_register_chromatic_query.php';
                                         <img src="../Asset/arranger_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_arranger" id="solo_arranger" placeholder="Arranger" >
+                                <input type="text" class="form-control" name="solo_arranger" id="solo_arranger" placeholder="Arranger" value="<?php if(isset($Solo_Arranger)){echo $Solo_Arranger;} ?>">
                                 <div class="error_msg" id="arranger_empty"><p>Please fill in arranger name.</p></div>
                                 <div class="error_msg" id="arranger_maxlength"><p>Arranger name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="arranger_isnum"><p>Arranger name should not be an number or contain any number.</p></div>
@@ -100,19 +102,19 @@ include 'php/competition_register_chromatic_query.php';
                                 <label for="solo_accompaniment">Accompaniment</label>
                                 <select class="form-control" name="solo_accompaniment" id="solo_accompaniment" >
                                     <option disabled>Choose an accompaniment</option>
-                                    <option>Piano</option>
-                                    <option>CD</option>
-                                    <option>None</option>
+                                    <option <?php if(isset($Solo_Accompaniment)){if($Solo_Accompaniment == 'Piano'){echo"selected";}} ?>>Piano</option>
+                                    <option <?php if(isset($Solo_Accompaniment)){if($Solo_Accompaniment == 'CD'){echo"selected";}} ?>>CD</option>
+                                    <option <?php if(isset($Solo_Accompaniment)){if($Solo_Accompaniment == 'None'){echo"selected";}} ?>>None</option>
                                 </select>
                             </div>
 
-                            <div id="solo_pianist_outer" class="input-group mb-3 mr-sm-2">
+                            <div id="solo_pianist_outer" class="input-group mb-3 mr-sm-2 <?php if(!isset($Solo_Pianist)){echo "d-none";} ?>">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <img src="../Asset/pianist_icon.svg" alt="@" width="20">
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="solo_pianist" id="solo_pianist" placeholder="Pianist Name" >
+                                <input type="text" class="form-control" name="solo_pianist" id="solo_pianist" placeholder="Pianist Name" value="<?php if(isset($Solo_Pianist)){echo $Solo_Pianist;} ?>">
                                 <div class="error_msg" id="pianist_empty"><p>Please fill in pianist name.</p></div>
                                 <div class="error_msg" id="pianist_maxlength"><p>Pianist name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="pianist_isnum"><p>Pianist name should not be an number or contain any number.</p></div>
@@ -124,9 +126,8 @@ include 'php/competition_register_chromatic_query.php';
                             <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
                         </div>
                         <div class="col-sm-3 float-right px-3 mt-2 mb-4">
-                            <button type="submit" name="reg_submit" class="btn btn-success btn-block">Confirm</button>
+                            <button type="submit" name="reg_submit" class="btn btn-success btn-block"><?php if(isset($soloID)){echo "Update";}else{echo "Confirm";} ?></button>
                         </div>
-                        
                     </form>
 
                 </div>

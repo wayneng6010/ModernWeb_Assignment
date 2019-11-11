@@ -79,7 +79,7 @@ include 'php/cart_query.php';
                                 <td>" . $row['Solo_Composer'] . "</td>
                                 <td>" . $row['Solo_Arranger'] . "</td>
                                 <td>" . $Solo_Accompaniment . "</td>
-                                <td>Edit</td>
+                                <td><a href='competition_register_chromatic.php?soloID=" . $row['Solo_ID'] . "'>Edit</a></td>
                              </tr>";
                         $counter += 1;
                     }
@@ -149,7 +149,7 @@ include 'php/cart_query.php';
                                 <td>" . $row['Ensemble_Composer'] . "</td>
                                 <td>" . $row['Ensemble_Arranger'] . "</td>
                                 <td>" . $Ensemble_Member . "</td>
-                                <td>Edit</td>
+                                <td><a href='competition_register_ensemble.php?ensembleID=" . $row['Ensemble_ID'] . "'>Edit</a></td>
                              </tr>";
                         $counter += 1;
                     }
@@ -228,7 +228,7 @@ include 'php/cart_query.php';
                             }
                         }
 
-                        echo "<td rowspan = " . $row_span . ">Edit</td>
+                        echo "<td rowspan = " . $row_span . "><a href='competition_register_orchestra.php?orchestraID=" . $row['Orchestra_ID'] . "'>Edit</a></td>
                              </tr>";
                         
                         foreach (array_slice($json_array, 1) as $key => $value) {
