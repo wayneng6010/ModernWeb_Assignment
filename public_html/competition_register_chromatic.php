@@ -108,7 +108,7 @@ include 'php/competition_register_chromatic_query.php';
                                 </select>
                             </div>
 
-                            <div id="solo_pianist_outer" class="input-group mb-3 mr-sm-2 <?php if(!isset($Solo_Pianist)){echo "d-none";} ?>">
+                            <div id="solo_pianist_outer" class="input-group mb-3 mr-sm-2 <?php if(isset($Solo_Accompaniment)){if(!isset($Solo_Pianist)){echo "d-none";}} ?>">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <img src="../Asset/pianist_icon.svg" alt="@" width="20">

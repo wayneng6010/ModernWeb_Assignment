@@ -5,7 +5,7 @@ include 'php/cart_query.php';
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register - Overview</title>
+        <title>Cart - Overview</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="../Asset/tab_icon.png">
@@ -13,12 +13,15 @@ include 'php/cart_query.php';
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
         <link rel="stylesheet" type="text/css" href="styles.css">
-        <script src="javascript.js"></script>
+        <script src="javascript.js">
+        </script>
     </head>
     <body>
         <?php include 'navbar.php'; ?>
-
+        <div class="msg_box success" style="display: none;"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Updated successful</p></div>
         <!--height spacing-->
         <div class="height_spacing"></div>
 
@@ -43,12 +46,14 @@ include 'php/cart_query.php';
 
                 <tbody>
                     <?php
+                    $counter_ttl = 0;
                     $rowcount = mysqli_num_rows($result_select_chromatic);
                     $counter = 1;
                     if ($rowcount == 0) {
-                        echo '<tr id="list_empty_row"><th colspan="7" class="text-center">No registration</th></tr>';
+                        echo '<tr id="list_empty_row"><th colspan="8" class="text-center">No registration</th></tr>';
                     }
                     while ($row = mysqli_fetch_assoc($result_select_chromatic)) {
+                        $counter_ttl += 1;
                         switch ($row['Solo_Cat']) {
                             case "cat1":
                                 $Solo_Cat = "Elementary";
@@ -110,6 +115,7 @@ include 'php/cart_query.php';
                         echo '<tr id="list_empty_row"><th colspan="8" class="text-center">No registration</th></tr>';
                     }
                     while ($row = mysqli_fetch_assoc($result_select_ensemble)) {
+                        $counter_ttl += $row['Ensemble_MemberCount'];
                         switch ($row['Ensemble_Cat']) {
                             case "cat1":
                                 $Ensemble_Cat = "Elementary";
@@ -221,6 +227,7 @@ include 'php/cart_query.php';
                                 $first = false;
                                 echo "<td>" . $key . "</td>";
                                 foreach ($value as $member) {
+                                    $counter_ttl += 1;
                                     $orchestra_section_member .= $member . "<br>";
                                 }
                                 echo "<td>" . $orchestra_section_member . "</td>";
@@ -230,11 +237,12 @@ include 'php/cart_query.php';
 
                         echo "<td rowspan = " . $row_span . "><a href='competition_register_orchestra.php?orchestraID=" . $row['Orchestra_ID'] . "'>Edit</a></td>
                              </tr>";
-                        
+
                         foreach (array_slice($json_array, 1) as $key => $value) {
                             echo "<tr>
                                 <td>" . $key . "</td>";
                             foreach ($value as $member) {
+                                $counter_ttl += 1;
                                 $orchestra_section_member .= $member . "<br>";
                             }
                             echo "<td>" . $orchestra_section_member . "</td></tr>";
@@ -243,10 +251,11 @@ include 'php/cart_query.php';
 
                         $counter += 1;
                     }
+                    
                     ?>
                 </tbody>
             </table>
-            
+
             <!--seminar table-->
             <h4 class="text-center mt-4 mb-3">Seminar</h4>
             <table class="table table-striped mb-5" id="solo_overview">
@@ -255,7 +264,6 @@ include 'php/cart_query.php';
                         <th scope="col">#</th>
                         <th scope="col">Session</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Action</th>
                     </tr>
                 </thead>
 
@@ -267,6 +275,7 @@ include 'php/cart_query.php';
                         echo '<tr id="list_empty_row"><th colspan="7" class="text-center">No registration</th></tr>';
                     }
                     while ($row = mysqli_fetch_assoc($result_select_seminar)) {
+                        $counter_ttl += $row['Sem_Quantity'];
                         switch ($row['Sem_Session']) {
                             case "ses1":
                                 $Sem_Session = "Cy Leo";
@@ -285,11 +294,11 @@ include 'php/cart_query.php';
                         echo "<tr>
                                 <td>" . $counter . "</td>
                                 <td>" . $Sem_Session . "</td>
-                                <td>" . $row['Sem_Quantity'] . "</td>
-                                <td>Edit</td>
+                                <td><input type='number' id='seminar_quantity' class='form-control w-25 seminar_quantity' step='1' min='1' max='5' value='" . $row['Sem_Quantity'] . "'></td>
                              </tr>";
                         $counter += 1;
                     }
+
                     ?>
                 </tbody>
             </table>
@@ -302,12 +311,22 @@ include 'php/cart_query.php';
         <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark justify-content-end">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <p class="nav-link my-0 mr-3" style="color: white;">Total - MYR 0.00</p>
+                    <p class="nav-link my-0 mr-3" style="color: white;">Total - MYR 
+                        <span id="checkout_ttl">
+                        <?php
+                            echo $counter_ttl * 20;
+                        ?>
+                        </span>
+                    </p>
                 </li>
             </ul>
             <a href="checkout.php" class="btn btn-success px-5" id="checkout_btn">Check Out</a>
         </nav>
 
-
+        
     </body>
+
+    <script>
+        
+    </script>
 </html>

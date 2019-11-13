@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
 
     $(".artist_img_portrait.first, .artist_content.first").mousemove(function (e) {
         var newvalueX = 0.01 * e.pageX;
@@ -236,8 +236,10 @@ $(document).ready(function () {
 
                 // store section_members array into associative array with index section_name
                 orchestra_members[section_name] = section_members;
+
+
 //                $("#orchestra_section_member").val(JSON.stringify(orchestra_members));
-                
+
                 $("#orchestra_member_list tbody tr").remove();
 
                 var counter = 1;
@@ -246,17 +248,17 @@ $(document).ready(function () {
                 for (var i in orchestra_members)
                 {
                     var name_list = "";
-                    
+
                     $.each(orchestra_members[i], function (index, value) {
                         name_list += value + "<br>";
                     });
-                    
+
                     var name_list_stored = name_list.replace(/<br>/g, ", ");
                     name_list_stored = name_list_stored.substring(0, name_list_stored.length - 2);
-                    
+
                     $('#orchestra_member_list tbody').append('<tr><th>' + counter + '</th><td>'
                             + i + '</td><td>' + orchestra_members[i].length + '</td><td>' + name_list
-                            + '</td><td><button onclick="edit_restore(this.value)" class="text-primary edit_btn" type="button" value="' + section_name + ':' + name_list_stored + '">' + 'Edit' + '</button></td></tr>');
+                            + '</td><td><button onclick="selectedRowToInput()" class="text-primary edit_btn" type="button" value="' + section_name + ':' + name_list_stored + '">' + 'Edit' + '</button></td></tr>');
 
                     counter += 1;
                     total_member += orchestra_members[i].length;
@@ -267,15 +269,20 @@ $(document).ready(function () {
                 $("#orchestra_section_name").val("");
                 $("#orchestra_section_members").val("");
 
-                if ($("#orchestra_section_add").html() === "Update") {
-                    document.body.innerHTML += '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Updated successfully</p></div>';
-                    $("#orchestra_section_add").html("Add Section");
-                }
+                $("#orchestra_section_add").html("Add Section");
+
+//                if ($("#orchestra_section_add").html() === "Update") {
+//                    document.body.innerHTML += '<div class="msg_box success"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Updated successfully</p></div>';
+//                    $("#orchestra_section_add").html("Add Section");
+//                    //document.getElementById("reg_submit").click();
+//                }
 //            alert(JSON.stringify(orchestra_members));
 
             }
         }
     });
+
+
 
     //validation
 
@@ -617,8 +624,13 @@ $(document).ready(function () {
                 orchestra_ID: $("#orchestra_ID").val()
             },
             success: function (data) {
-                alert("Saved successfully");
-                window.location.replace("cart.php");
+                if (data) {
+                    alert("Saved successfully");
+                    location.reload();
+                } else {
+                    alert("Error occured");
+                }
+//                window.location.replace("cart.php");
 //                document.body.innerHTML += data;
             },
             error: function (exception) {
@@ -969,7 +981,109 @@ $(document).ready(function () {
             $(this).closest('form').find("input[type=text], input[type=number], textarea").val("");
         }
     });
-
+    
+    var oldValue_1 = $('.seminar_quantity').eq(0).val();
+    $('.seminar_quantity').eq(0).bind('input', function () {
+        var session = "ses1";
+        var seminar_quantity = $(".seminar_quantity").eq(0).val();
+        $.ajax({
+            url: 'php/cart_seminar_query.php',
+            type: 'post',
+            data: {
+                session: session,
+                seminar_quantity: seminar_quantity
+            },
+            success: function (data) {
+                if (data) {
+                    $current_ttl =  parseInt($("#checkout_ttl").html());
+                    if (seminar_quantity > oldValue_1) {
+                        $("#checkout_ttl").html($current_ttl + (1 * 20));
+                    } else {
+                        $("#checkout_ttl").html($current_ttl - (1 * 20));
+                    }
+                    oldValue_1 = seminar_quantity;
+                    $(".msg_box").fadeIn();
+                    setInterval(function () {
+                        $(".msg_box").fadeOut();
+                    }, 2000);
+                } else {
+                    document.body.innerHTML += '<div class="msg_box failed"><img src="../Asset/cross_icon.svg" width="25" alt="@"><p>Email already exist</p></div>';
+                }
+            },
+            error: function (exception) {
+                alert('Exception:' + exception);
+            }
+        });
+    });
+    
+    var oldValue_2 = $('.seminar_quantity').eq(1).val();
+    $('.seminar_quantity').eq(1).bind('input', function () {
+        var session = "ses2";
+        var seminar_quantity = $(".seminar_quantity").eq(1).val();
+        $.ajax({
+            url: 'php/cart_seminar_query.php',
+            type: 'post',
+            data: {
+                session: session,
+                seminar_quantity: seminar_quantity
+            },
+            success: function (data) {
+                if (data) {
+                    $current_ttl =  parseInt($("#checkout_ttl").html());
+                    if (seminar_quantity > oldValue_2) {
+                        $("#checkout_ttl").html($current_ttl + (1 * 20));
+                    } else {
+                        $("#checkout_ttl").html($current_ttl - (1 * 20));
+                    }
+                    oldValue_2 = seminar_quantity;
+                    $(".msg_box").fadeIn();
+                    setInterval(function () {
+                        $(".msg_box").fadeOut();
+                    }, 2000);
+                    
+                } else {
+                    document.body.innerHTML += '<div class="msg_box failed"><img src="../Asset/cross_icon.svg" width="25" alt="@"><p>Email already exist</p></div>';
+                }
+            },
+            error: function (exception) {
+                alert('Exception:' + exception);
+            }
+        });
+    });
+    
+    var oldValue_3 = $('.seminar_quantity').eq(2).val();
+    $('.seminar_quantity').eq(2).bind('input', function () {
+        var session = "ses3";
+        var seminar_quantity = $(".seminar_quantity").eq(2).val();
+        $.ajax({
+            url: 'php/cart_seminar_query.php',
+            type: 'post',
+            data: {
+                session: session,
+                seminar_quantity: seminar_quantity
+            },
+            success: function (data) {
+                if (data) {
+                    $current_ttl =  parseInt($("#checkout_ttl").html());
+                    if (seminar_quantity > oldValue_3) {
+                        $("#checkout_ttl").html($current_ttl + (1 * 20));
+                    } else {
+                        $("#checkout_ttl").html($current_ttl - (1 * 20));
+                    }
+                    oldValue_3 = seminar_quantity;
+                    $(".msg_box").fadeIn();
+                    setInterval(function () {
+                        $(".msg_box").fadeOut();
+                    }, 2000);
+                } else {
+                    document.body.innerHTML += '<div class="msg_box failed"><img src="../Asset/cross_icon.svg" width="25" alt="@"><p>Email already exist</p></div>';
+                }
+            },
+            error: function (exception) {
+                alert('Exception:' + exception);
+            }
+        });
+    });
 
 
 });

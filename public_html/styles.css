@@ -242,7 +242,7 @@ label {
 }
 
 .msg_box {
-    position: absolute;
+    position: fixed;
     background-color: #33cc5c;
     width: 255px;
     height: 55px;

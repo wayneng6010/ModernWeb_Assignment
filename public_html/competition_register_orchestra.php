@@ -38,6 +38,24 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
 
         <link rel="stylesheet" type="text/css" href="styles.css">
         <script src="javascript.js"></script>
+        <script>
+            function selectedRowToInput()
+            {
+                var table = document.getElementById("orchestra_member_list");
+                for (var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function ()
+                    {
+                        // get the seected row index
+                        rIndex = this.rowIndex;
+//                        alert(this.cells[0].innerHTML);
+                        $("#orchestra_section_name").val(this.cells[1].innerHTML);
+                        $("#orchestra_section_members").val(this.cells[3].innerHTML.replace(/<br>/g, ', ').substring(0, this.cells[3].innerHTML.replace(/<br>/g, ', ').length - 2));
+                        $("#orchestra_section_add").html("Update");
+                    };
+                }
+            }
+        </script>
         <?php
         if (isset($Orchestra_SectionName)) {
             echo '<script>var orchestra_members_restore = ' . $Orchestra_SectionName . ';</script>';
@@ -57,7 +75,7 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
                     <h2 class="text-center">Orchestra Registration</h2>
                     <hr>
 
-                    <form name="orchestra_form" method="post" onsubmit="return orchestra_form_validate()">
+                    <form name="orchestra_form" id="orchestra_form" method="post" onsubmit="return orchestra_form_validate()">
                         <input type="number" name="orchestra_ID" id="orchestra_ID" novalidate value="<?php
                         if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
                             echo filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING);
@@ -235,7 +253,7 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
                             <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
                         </div>
                         <div class="col-sm-3 float-right px-3 mt-2 mb-4">
-                            <button type="submit" name="reg_submit" class="btn btn-success btn-block"><?php
+                            <button type="submit" name="reg_submit" id="reg_submit" class="btn btn-success btn-block"><?php
                                 if (isset($orchestraID)) {
                                     echo "Update";
                                 } else {
@@ -305,8 +323,8 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
         if (typeof document.getElementsByClassName("msg_box") !== 'undefined') {
             setInterval(function () {
                 $(".msg_box").fadeOut();
-            }, 2000);
+            }, 4000);
         }
-        
+
     </script>
 </html>
