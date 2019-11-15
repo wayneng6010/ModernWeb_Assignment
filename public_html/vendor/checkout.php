@@ -19,11 +19,11 @@ require 'app/start.php';
 
 //echo "<script>alert(" . $_SESSION['checkout_ttl'] . ")</script>";
 
-if (!isset($_POST['checkout_btn'])) {
+if (!isset($_SESSION['uID'])) {
     die();
 }
 
-if (isset($_POST['checkout_btn'])) {
+if (isset($_SESSION['uID'])) {
     if (isset($_SESSION['uID'])) {
         $uid1 = $_SESSION['uID'];
         $payer = new Payer();

@@ -279,5 +279,9 @@ label {
     filter: brightness(.8);
 }
 
+.seminar_row > td {
+    padding-bottom: 0px !important;
+}
+
 
 

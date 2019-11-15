@@ -17,6 +17,11 @@ if (isset($_SESSION['uID'])) {
     $result_select_seminar = mysqli_query($link, $sql_select_seminar);
 
 } else {
-    header('Location: index.php');
+    header('Location: log_in.php');
+}
+
+if (filter_input(INPUT_POST, 'checkout_btn', FILTER_SANITIZE_URL) !== null) {
+    header("Refresh:0");
+    header('Location: vendor/checkout.php');
 }
 ?>

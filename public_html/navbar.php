@@ -28,7 +28,7 @@
             <!-- Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle <?php
-                if ($filename === 'competition_register.php' || $filename === 'competition_rules.php' || $filename === 'competition_register_chromatic.php' || $filename === 'competition_register_ensemble.php' || $filename === 'competition_register_orchestra.php') {
+                if ($filename === 'competition_register.php' || $filename === 'competition_rules.php' || $filename === 'competition_register_chromatic.php' || $filename === 'competition_register_ensemble.php' || $filename === 'competition_register_orchestra.php' || $filename === 'registered_item.php') {
                     echo "active";
                 }
                 ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,6 +45,11 @@
                         echo "active";
                     }
                     ?>" href="competition_rules.php">Rules</a>
+                    <a class="dropdown-item  <?php
+                    if ($filename === 'registered_item.php') {
+                        echo "active";
+                    }
+                    ?>" href="registered_item.php">Registered Item</a>
                 </div>
             </li>
             <!-- /Dropdown -->
@@ -76,7 +81,7 @@
             <a class="nav-link p-0" href="cart.php"><img src="../Asset/cart_icon.svg" width="30"></a>
                 <?php
                 if (isset($_SESSION['uLogin'])) {
-                    echo '<a class = "nav-link pr-3" href = "#">' . $_SESSION['uName'] . '</a>';
+                    echo '<a class = "nav-link pr-3" href = "user_profile.php">' . $_SESSION['uName'] . '</a>';
                     echo '<a class = "btn btn-secondary my-2 my-sm-0 px-4" href = "php/logout_query.php">Logout</a>';
                 } else {
                     echo '<a class = "nav-link pr-3" href = "log_in.php">Log in</a>';

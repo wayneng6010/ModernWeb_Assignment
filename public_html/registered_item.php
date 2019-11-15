@@ -1,11 +1,11 @@
 <?php
 session_start();
-include 'php/cart_query.php';
+include 'php/registered_item_query.php';
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Cart - Overview</title>
+        <title>Registered Item</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="../Asset/tab_icon.png">
@@ -28,13 +28,11 @@ include 'php/cart_query.php';
     </head>
     <body>
         <?php include 'navbar.php'; ?>
-        <div class="msg_box delete" style="display: none;"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Deleted successfully</p></div>
-        <div class="msg_box update" style="display: none;"><img src="../Asset/correct_icon.svg" width="25" alt="@"><p>Updated successfully</p></div>
         <!--height spacing-->
         <div class="height_spacing"></div>
 
         <div class="container-fluid mt-4 px-5">
-            <h2 class="text-center">Registration Submission Overview</h2>
+            <h2 class="text-center">Registered Item</h2>
             <hr>
             <!--chromatic solo table-->
             <h4 class="text-center mt-4 mb-3">Chromatic Solo</h4>
@@ -48,7 +46,7 @@ include 'php/cart_query.php';
                         <th scope="col">Composer</th>
                         <th scope="col">Arranger</th>
                         <th scope="col">Accompaniment</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Payment Date</th>
                     </tr>
                 </thead>
 
@@ -92,10 +90,7 @@ include 'php/cart_query.php';
                                 <td>" . $row['Solo_Composer'] . "</td>
                                 <td>" . $row['Solo_Arranger'] . "</td>
                                 <td>" . $Solo_Accompaniment . "</td>
-                                <td>
-                                    <a href='competition_register_chromatic.php?soloID=" . $row['Solo_ID'] . "'><img src='../Asset/edit_icon.svg' width='20' style='margin-top: -7px;'></a>
-                                    <button type='button' class='chromatic_del_btn' value='" . $row['Solo_ID'] . "'><img src='../Asset/del_icon.svg' width='20' style='margin-top: -7px;'></button>
-                                </td>
+                                <td>" . date('Y-m-d h:i A', strtotime($row['Solo_PaymentDate'])) . "</td>
                              </tr>";
                         $counter += 1;
                     }
@@ -115,7 +110,7 @@ include 'php/cart_query.php';
                         <th scope="col">Composer</th>
                         <th scope="col">Arranger</th>
                         <th scope="col">Member</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Payment Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -166,10 +161,9 @@ include 'php/cart_query.php';
                                 <td>" . $row['Ensemble_Composer'] . "</td>
                                 <td>" . $row['Ensemble_Arranger'] . "</td>
                                 <td>" . $Ensemble_Member . "</td>
-                                <td>
-                                    <a href='competition_register_ensemble.php?ensembleID=" . $row['Ensemble_ID'] . "'><img src='../Asset/edit_icon.svg' width='20' style='margin-top: -7px;'></a>
-                                    <button type='button' class='ensemble_del_btn' value='" . $row['Ensemble_ID'] . "'><img src='../Asset/del_icon.svg' width='20' style='margin-top: -7px;'></button>
-                                </td>
+                                <td>" . date('Y-m-d', strtotime($row['Ensemble_PaymentDate'])) . 
+                                    "<br>" . date('h:i A', strtotime($row['Ensemble_PaymentDate'])) .  
+                                "</td>
                              </tr>";
                         $counter += 1;
                     }
@@ -190,7 +184,7 @@ include 'php/cart_query.php';
                         <th scope="col">Arranger</th>
                         <th scope="col">Section</th>
                         <th scope="col">Members</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Payment Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -249,10 +243,10 @@ include 'php/cart_query.php';
                             }
                         }
 
-                        echo "<td rowspan = " . $row_span . ">"
-                        . "<a href='competition_register_orchestra.php?orchestraID=" . $row['Orchestra_ID'] . "'><img src='../Asset/edit_icon.svg' width='20' style='margin-top: -7px;'></a>
-                                    <button type='button' class='orchestra_del_btn' value='" . $row['Orchestra_ID'] . "'><img src='../Asset/del_icon.svg' width='20' style='margin-top: -7px;'></button>
-                              </td>
+                        echo "<td rowspan = " . $row_span . ">" . 
+                                date('Y-m-d', strtotime($row['Orchestra_PaymentDate'])) . 
+                                "<br>" . date('h:i A', strtotime($row['Orchestra_PaymentDate'])) .  
+                             "</td>
                              </tr>";
 
                         foreach (array_slice($json_array, 1) as $key => $value) {
@@ -280,7 +274,7 @@ include 'php/cart_query.php';
                         <th scope="col">#</th>
                         <th scope="col">Session</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Payment Date</th>
                     </tr>
                 </thead>
 
@@ -308,13 +302,11 @@ include 'php/cart_query.php';
                                 break;
                         }
 
-                        echo "<tr>
+                        echo "<tr class='seminar_row'>
                                 <td>" . $counter . "</td>
                                 <td>" . $Sem_Session . "</td>
-                                <td><input type='number' id='seminar_quantity' class='form-control w-25 seminar_quantity' step='1' min='1' max='5' value='" . $row['Sem_Quantity'] . "'></td>
-                                <td>
-                                    <button type='button' class='sem_del_btn' value='" . $row['Sem_ID'] . "'><img src='../Asset/del_icon.svg' width='20'></button>
-                                </td>
+                                <td><p>" . $row['Sem_Quantity'] . "</p></td>
+                                <td>" . date('Y-m-d h:i A', strtotime($row['Sem_PaymentDate'])) . "</td>
                              </tr>";
                         $counter += 1;
                     }
@@ -325,27 +317,7 @@ include 'php/cart_query.php';
         </div>
 
         <!--blank spacing-->
-        <div style="height: 50px;"></div>
-
-        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <p class="nav-link my-0 mr-3" style="color: white;">Total - MYR 
-                        <span id="checkout_ttl">
-                        <?php
-                        echo $counter_ttl * 20;
-                        $_SESSION['checkout_ttl'] = $counter_ttl * 20;
-                        ?>
-                        </span>
-                    </p>
-                </li>
-            </ul>
-            <form method="post" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
-                <button type="submit" href="checkout.php" class="btn btn-success px-5" name="checkout_btn" id="checkout_btn">Check Out</button>
-            </form>
-            
-        </nav>
-
+        <div style="height: 10px;"></div>
 
     </body>
 
