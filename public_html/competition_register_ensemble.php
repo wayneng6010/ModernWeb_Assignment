@@ -13,6 +13,7 @@ include 'php/competition_register_ensemble_query.php';
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
         <script src="javascript.js"></script>
     </head>
@@ -78,6 +79,7 @@ include 'php/competition_register_ensemble_query.php';
                                 <div class="error_msg" id="ename_empty"><p>Please fill in team name.</p></div>
                                 <div class="error_msg" id="ename_maxlength"><p>Team name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="ename_isnum"><p>Team name should not be an number or contain any number.</p></div>
+                                <div class="error_msg" id="teamname_exist"><p>Team name already exist.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
@@ -247,7 +249,7 @@ include 'php/competition_register_ensemble_query.php';
                             <button type="button" id="reset_btn" class="btn btn-info btn-block">Reset</button>
                         </div>
                         <div class="col-sm-3 float-right px-3 mt-2 mb-4">
-                            <button type="submit" name="reg_submit" class="btn btn-success btn-block"><?php if (isset($ensembleID)) {
+                            <button type="submit" name="reg_submit" id="reg_submit" class="btn btn-success btn-block"><?php if (isset($ensembleID)) {
                             echo "Update";
                         } else {
                             echo "Confirm";

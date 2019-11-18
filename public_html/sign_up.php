@@ -65,7 +65,7 @@ include 'php/sign_up_query.php';
                         <div class="error_msg" id="hpno_isMax"><p>Phone number of Malaysia after prefix should be maximum of 8 digits.</p></div>
                         <div class="error_msg" id="hpno_isMin"><p>Phone number of Malaysia after prefix should be at least 7 digits.</p></div>
                         <div class="error_msg" id="hpno_isnum"><p>Phone number should not contain character other than number.</p></div>
-                        <div class="error_msg" id="hpno_prefix"><p>Phone number of Malaysia should contain prefix of either 01 or 04.</p></div>
+                        <div class="error_msg" id="hpno_prefix"><p>Phone number of Malaysia should start from 0.</p></div>
                     </div>
                     <!--password-->
                     <div class="input-group mb-3 mr-sm-2">

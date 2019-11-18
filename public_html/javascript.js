@@ -396,6 +396,28 @@ $(document).ready(function () {
 
     };
 
+    $("#ensemble_team_name").change(function () {
+        $.ajax({
+            url: 'php/register_ensemble_teamname_query.php',
+            type: 'post',
+            data: {
+                ensemble_team_name: $("#ensemble_team_name").val()
+            },
+            success: function (data) {
+                if (data) {
+                    $("#reg_submit").prop("disabled",true);
+                    $("#teamname_exist").css("display", "block");
+                } else {
+                    $("#reg_submit").prop("disabled",false);
+                    $("#teamname_exist").css("display", "none");
+                }
+            },
+            error: function (exception) {
+                alert('Exception:' + exception);
+            }
+        });
+    });
+
     // validate for ensemble form
     ensemble_form_validate = function () {
         // makes all error message invisble
@@ -471,7 +493,7 @@ $(document).ready(function () {
         // validation for arranger input
         if (ensemble_arranger.length === 0) {
             $("#arranger_empty").css("display", "block");
-            $('input[name="solo_arranger"]').css("border", "1px solid #ff7d7d");
+            $('input[name="ensemble_arranger"]').css("border", "1px solid #ff7d7d");
             validate = false;
         }
         if (ensemble_arranger.length > 30) {
@@ -597,9 +619,28 @@ $(document).ready(function () {
         }
 
     };
-
-
-
+    
+    $("#orchestra_name").change(function () {
+        $.ajax({
+            url: 'php/register_orchestra_teamname_query.php',
+            type: 'post',
+            data: {
+                orchestra_team_name: $("#orchestra_name").val()
+            },
+            success: function (data) {
+                if (data) {
+                    $("#reg_submit").prop("disabled",true);
+                    $("#oname_exist").css("display", "block");
+                } else {
+                    $("#reg_submit").prop("disabled",false);
+                    $("#oname_exist").css("display", "none");
+                }
+            },
+            error: function (exception) {
+                alert('Exception:' + exception);
+            }
+        });
+    });
 
     function orchestra_register_submit() {
 //        for (var i in orchestra_members)
@@ -625,10 +666,17 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data) {
-                    alert("Saved successfully");
-                    location.reload();
+                    alert("Register successful");
+                    $(".msg_box.success").fadeIn();
+                    setInterval(function () {
+                        $(".msg_box.success").fadeOut();
+                    }, 2000);
                 } else {
-                    alert("Error occured");
+                    alert("Register failed");
+                    $(".msg_box.failed").fadeIn();
+                    setInterval(function () {
+                        $(".msg_box.failed").fadeOut();
+                    }, 2000);
                 }
 //                window.location.replace("cart.php");
 //                document.body.innerHTML += data;
@@ -840,6 +888,184 @@ $(document).ready(function () {
         this.value = $.trim(this.value);
     });
 
+    update_profile_form_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var reg_fname = document.forms["update_profile_form"]["pro_fname"].value;
+        var reg_email = document.forms["update_profile_form"]["pro_email"].value;
+        var reg_hpno = document.forms["update_profile_form"]["pro_hpno"].value;
+
+        var validate = true;
+
+        // validation for full name input
+        if (reg_fname.length === 0) {
+            $("#fname_empty").css("display", "block");
+            $('input[name="pro_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (!reg_fname.match(' ')) {
+            $("#fname_notFull").css("display", "block");
+            $('input[name="pro_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_fname.length > 30) {
+            $("#fname_maxlength").css("display", "block");
+            $('input[name="pro_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if ($.isNumeric(reg_fname) || /\d/.test(reg_fname)) {
+            $("#fname_isnum").css("display", "block");
+            $('input[name="pro_fname"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for email input
+        if (reg_email.length === 0) {
+            $("#email_empty").css("display", "block");
+            $('input[name="pro_email"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reg_email) === false) {
+            $("#email_invalid").css("display", "block");
+            $('input[name="pro_email"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for full name input
+        if (reg_hpno.length === 0) {
+            $("#hpno_empty").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (!$.isNumeric(reg_hpno) || /\D/.test(reg_hpno)) {
+            $("#hpno_isnum").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0, 1) !== "0") {
+            $("#hpno_prefix").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0, 2) !== "01" && reg_hpno.length < 9) {
+            $("#hpno_isMin").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0, 2) === "01" && reg_hpno.length < 10) {
+            $("#hpno_isMin").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_hpno.substring(0, 2) === "01" && reg_hpno.length > 11) {
+            $("#hpno_isMax").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_hpno.substring(0, 2) !== "01" && reg_hpno.length > 10) {
+            $("#hpno_isMax").css("display", "block");
+            $('input[name="pro_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // check if the form is fully validate
+        if (!validate) {
+            return false;
+        }
+    };
+
+//    $("#change_pwd_form").submit(function (e) {
+//        e.preventDefault();
+//    });
+
+    change_pwd_validate = function () {
+        // makes all error message invisble
+        $(".error_msg").css("display", "none");
+        $('input').css("border", "1px solid #ced4da");
+
+        var reg_pwd = document.forms["change_pwd_form"]["pro_pwd"].value;
+        var reg_newpwd = document.forms["change_pwd_form"]["pro_new_pwd"].value;
+        var reg_cpwd = document.forms["change_pwd_form"]["pro_con_pwd"].value;
+
+        var validate = true;
+
+//        $.ajax({
+//            url: 'php/user_profile_changepwd_query.php',
+//            type: 'post',
+//            data: {
+//                input_password: reg_pwd
+//            },
+//            success: function (data) {
+//                if (!data) {
+//                    $("#pwd_incorrect").css("display", "block");
+//                    $('input[name="pro_pwd"]').css("border", "1px solid #ff7d7d");
+//                    validate = false;
+//                } else {
+//                    
+//                }
+//
+//            },
+//            error: function (exception) {
+//                alert('Exception:' + exception);
+//            }
+//        });
+
+        // validation for password input
+        if (reg_pwd.length === 0) {
+            $("#pwd_empty").css("display", "block");
+            $('input[name="pro_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_pwd.length < 8) {
+            $("#pwd_secure").css("display", "block");
+            $('input[name="pro_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_pwd.length > 20) {
+            $("#pwd_maxlength").css("display", "block");
+            $('input[name="pro_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+
+
+        // validation for new password input
+        if (reg_newpwd.length === 0) {
+            $("#new_pwd_empty").css("display", "block");
+            $('input[name="pro_new_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_newpwd.length < 8) {
+            $("#new_pwd_secure").css("display", "block");
+            $('input[name="pro_new_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_newpwd.length > 20) {
+            $("#new_pwd_maxlength").css("display", "block");
+            $('input[name="pro_new_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        // validation for confirm new password input
+        if (reg_cpwd.length === 0) {
+            $("#cpwd_empty").css("display", "block");
+            $('input[name="pro_con_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_cpwd.length < 8) {
+            $("#cpwd_secure").css("display", "block");
+            $('input[name="pro_con_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_cpwd !== reg_newpwd) {
+            $("#cpwd_match").css("display", "block");
+            $('input[name="pro_con_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+        if (reg_cpwd.length > 20) {
+            $("#cpwd_maxlength").css("display", "block");
+            $('input[name="pro_con_pwd"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        }
+
+        if (!validate) {
+            return false;
+        }
+
+    };
+
     register_form_validate = function () {
         // makes all error message invisble
         $(".error_msg").css("display", "none");
@@ -900,7 +1126,11 @@ $(document).ready(function () {
             $("#hpno_isnum").css("display", "block");
             $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
             validate = false;
-        } else if (reg_hpno.substring(0, 2) === "04" && reg_hpno.length < 9) {
+        } else if (reg_hpno.substring(0, 1) !== "0") {
+            $("#hpno_prefix").css("display", "block");
+            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+            validate = false;
+        } else if (reg_hpno.substring(0, 2) !== "01" && reg_hpno.length < 9) {
             $("#hpno_isMin").css("display", "block");
             $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
             validate = false;
@@ -908,17 +1138,19 @@ $(document).ready(function () {
             $("#hpno_isMin").css("display", "block");
             $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
             validate = false;
-        } else if (reg_hpno.substring(0, 2) !== "04" && reg_hpno.substring(0, 2) !== "01") {
-            $("#hpno_prefix").css("display", "block");
-            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
-            validate = false;
         }
+
+//        if (reg_hpno.substring(0, 2) !== "04" && reg_hpno.substring(0, 2) !== "01") {
+//            $("#hpno_prefix").css("display", "block");
+//            $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
+//            validate = false;
+//        }
         if (reg_hpno.substring(0, 2) === "01" && reg_hpno.length > 11) {
             $("#hpno_isMax").css("display", "block");
             $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
             validate = false;
         }
-        if (reg_hpno.substring(0, 2) === "04" && reg_hpno.length > 10) {
+        if (reg_hpno.substring(0, 2) !== "01" && reg_hpno.length > 10) {
             $("#hpno_isMax").css("display", "block");
             $('input[name="reg_hpno"]').css("border", "1px solid #ff7d7d");
             validate = false;
@@ -1209,7 +1441,7 @@ $(document).ready(function () {
             del_cart_record("chromatic", id);
         }
     });
-    
+
     $(".ensemble_del_btn").click(function () {
         var confirm_del = confirm("Are you sure to delete this record?");
         if (confirm_del) {
@@ -1217,7 +1449,7 @@ $(document).ready(function () {
             del_cart_record("ensemble", id);
         }
     });
-    
+
     $(".orchestra_del_btn").click(function () {
         var confirm_del = confirm("Are you sure to delete this record?");
         if (confirm_del) {
@@ -1225,7 +1457,7 @@ $(document).ready(function () {
             del_cart_record("orchestra", id);
         }
     });
-    
+
     $(".sem_del_btn").click(function () {
         var confirm_del = confirm("Are you sure to delete this record?");
         if (confirm_del) {

@@ -55,6 +55,8 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
                     };
                 }
             }
+
+     
         </script>
         <?php
         if (isset($Orchestra_SectionName)) {
@@ -65,6 +67,8 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
     </head>
     <body>
         <?php include 'navbar.php'; ?>
+        <div class="msg_box success" style="display: none;"><img src="../Asset/correct_icon.svg" width="25" alt="@" ><p>Register Successful</p></div>
+        <div class="msg_box failed" style="display: none;"><img src="../Asset/cross_icon.svg" width="25" alt="@"><p>Register Failed</p></div>
 
         <!--height spacing-->
         <div class="height_spacing"></div>
@@ -137,6 +141,7 @@ if (filter_input(INPUT_GET, 'orchestraID', FILTER_SANITIZE_STRING) !== null) {
                                 <div class="error_msg" id="oname_empty"><p>Please fill in orchestra name.</p></div>
                                 <div class="error_msg" id="oname_maxlength"><p>Orchestra name is too long. Maximum 30 characters.</p></div>
                                 <div class="error_msg" id="oname_isnum"><p>Orchestra name should not be an number or contain any number.</p></div>
+                                <div class="error_msg" id="oname_exist"><p>Orchestra name already exist.</p></div>
                             </div>
 
                             <div class="input-group mb-3 mr-sm-2">
